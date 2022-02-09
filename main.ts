@@ -221,7 +221,7 @@ controller.B.onEvent(ControllerButtonEvent.Pressed, function () {
     }
 })
 controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
-    mySprite.ay += 10
+    mySprite.ay += 100
 })
 controller.left.onEvent(ControllerButtonEvent.Pressed, function () {
     Throw = 0
