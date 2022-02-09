@@ -221,7 +221,7 @@ controller.B.onEvent(ControllerButtonEvent.Pressed, function () {
     }
 })
 controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
-    mySprite.ay += 100
+    mySprite.vy += -190
 })
 controller.left.onEvent(ControllerButtonEvent.Pressed, function () {
     Throw = 0
@@ -338,7 +338,7 @@ controller.right.onEvent(ControllerButtonEvent.Released, function () {
         . . . f d b b d d c d d f . . . 
         . . . f f f f f f f f f . . . . 
         `],
-    500,
+    200,
     false
     )
 })
@@ -363,7 +363,7 @@ controller.left.onEvent(ControllerButtonEvent.Released, function () {
         . . . f d d c d d b b d f . . . 
         . . . . f f f f f f f f f . . . 
         `],
-    500,
+    200,
     false
     )
 })
@@ -461,8 +461,40 @@ controller.right.onEvent(ControllerButtonEvent.Pressed, function () {
     true
     )
 })
+function Call_Banannas () {
+    for (let value of tiles.getTilesByType(sprites.swamp.swampTile3)) {
+        console.logValue("banannaloctation", 0)
+        Bananna = sprites.create(img`
+            . . . . . f f f . . . . . . . . 
+            . . . . . f e f . . . . . . . . 
+            . . . f f f f f . . . . . . . . 
+            . . f 5 5 f . . . . . . . . . . 
+            . f 5 5 5 f . . . . . . . . . . 
+            . f 5 5 5 f . . . . . . . . . . 
+            f 5 5 5 5 f . . . . . . . . . . 
+            f 5 5 5 5 d f f . . . . . . . . 
+            f 5 5 5 5 5 d d f f . . . . . . 
+            . f 5 5 5 5 5 5 d d f f . . . . 
+            . . f 5 5 5 5 5 5 5 5 f . . . . 
+            . . . f f 5 5 5 5 f f . . . . . 
+            . . . . . f f f f f . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            `, SpriteKind.Food)
+        tiles.placeOnTile(Bananna, value)
+        tiles.setTileAt(value, assets.tile`transparency16`)
+    }
+}
+sprites.onOverlap(SpriteKind.Player, SpriteKind.Food, function (sprite, otherSprite) {
+    info.changeScoreBy(1)
+    otherSprite.destroy()
+})
+let Bananna: Sprite = null
 let Throw = 0
 let mySprite: Sprite = null
+info.setScore(0)
+info.setLife(3)
 scene.setBackgroundImage(img`
     7777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777
     7777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777
@@ -607,3 +639,4 @@ mySprite = sprites.create(img`
 controller.moveSprite(mySprite, 100, 0)
 mySprite.ay = 500
 scene.cameraFollowSprite(mySprite)
+Call_Banannas()
