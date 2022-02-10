@@ -1,3 +1,9 @@
+namespace SpriteKind {
+    export const Snake = SpriteKind.create()
+}
+sprites.onCreated(SpriteKind.Enemy, function (sprite) {
+    Snake.vy = 100
+})
 controller.B.onEvent(ControllerButtonEvent.Pressed, function () {
     if (Throw == 0) {
         animation.runImageAnimation(
@@ -411,6 +417,9 @@ controller.left.onEvent(ControllerButtonEvent.Released, function () {
     false
     )
 })
+statusbars.onZero(StatusBarKind.Health, function (status) {
+    Snake.destroy()
+})
 controller.right.onEvent(ControllerButtonEvent.Pressed, function () {
     Throw = 1
     animation.runImageAnimation(
@@ -530,6 +539,75 @@ function Call_Banannas () {
         tiles.setTileAt(value, assets.tile`transparency16`)
     }
 }
+function Make_Enemys () {
+    for (let value of tiles.getTilesByType(sprites.castle.tilePath5)) {
+        console.logValue("snakeloctation", 0)
+        Snake = sprites.create(img`
+            . . . . c c c c c c . . . . . . 
+            . . . c 6 7 7 7 7 6 c . . . . . 
+            . . c 7 7 7 7 7 7 7 7 c . . . . 
+            . c 6 7 7 7 7 7 7 7 7 6 c . . . 
+            . c 7 c 6 6 6 6 c 7 7 7 c . . . 
+            . f 7 6 f 6 6 f 6 7 7 7 f . . . 
+            . f 7 7 7 7 7 7 7 7 7 7 f . . . 
+            . . f 7 7 7 7 6 c 7 7 6 f c . . 
+            . . . f c c c c 7 7 6 f 7 7 c . 
+            . . c 7 2 7 7 7 6 c f 7 7 7 7 c 
+            . c 7 7 2 7 7 c f c 6 7 7 6 c c 
+            c 1 1 1 1 7 6 f c c 6 6 6 c . . 
+            f 1 1 1 1 1 6 6 c 6 6 6 6 f . . 
+            f 6 1 1 1 1 1 6 6 6 6 6 c f . . 
+            . f 6 1 1 1 1 1 1 6 6 6 f . . . 
+            . . c c c c c c c c c f . . . . 
+            `, SpriteKind.Snake)
+        tiles.placeOnTile(Snake, value)
+        tiles.setTileAt(value, assets.tile`transparency16`)
+        Snake.vx = -50
+        animation.runImageAnimation(
+        Snake,
+        [img`
+            . . . . c c c c c c . . . . . . 
+            . . . c 6 7 7 7 7 6 c . . . . . 
+            . . c 7 7 7 7 7 7 7 7 c . . . . 
+            . c 6 7 7 7 7 7 7 7 7 6 c . . . 
+            . c 7 c 6 6 6 6 c 7 7 7 c . . . 
+            . f 7 6 f 6 6 f 6 7 7 7 f . . . 
+            . f 7 7 7 7 7 7 7 7 7 7 f . . . 
+            . . f 7 7 7 7 6 c 7 7 6 f c . . 
+            . . . f c c c c 7 7 6 f 7 7 c . 
+            . . c 7 2 7 7 7 6 c f 7 7 7 7 c 
+            . c 7 7 2 7 7 c f c 6 7 7 6 c c 
+            c 1 1 1 1 7 6 f c c 6 6 6 c . . 
+            f 1 1 1 1 1 6 6 c 6 6 6 6 f . . 
+            f 6 1 1 1 1 1 6 6 6 6 6 c f . . 
+            . f 6 1 1 1 1 1 1 6 6 6 f . . . 
+            . . c c c c c c c c c f . . . . 
+            `,img`
+            . . . c c c c c c . . . . . . . 
+            . . c 6 7 7 7 7 6 c . . . . . . 
+            . c 7 7 7 7 7 7 7 7 c . . . . . 
+            c 6 7 7 7 7 7 7 7 7 6 c . . . . 
+            c 7 c 6 6 6 6 c 7 7 7 c . . . . 
+            f 7 6 f 6 6 f 6 7 7 7 f . . . . 
+            f 7 7 7 7 7 7 7 7 7 7 f . . . . 
+            . f 7 7 7 7 6 c 7 7 6 f . . . . 
+            . . f c c c c 7 7 6 f c c c . . 
+            . . c 6 2 7 7 7 f c c 7 7 7 c . 
+            . c 6 7 7 2 7 7 c f 6 7 7 7 7 c 
+            . c 1 1 1 1 7 6 6 c 6 6 6 c c c 
+            . c 1 1 1 1 1 6 6 6 6 6 6 c . . 
+            . c 6 1 1 1 1 1 6 6 6 6 6 c . . 
+            . . c 6 1 1 1 1 1 7 6 6 c c . . 
+            . . . c c c c c c c c c c . . . 
+            `],
+        100,
+        true
+        )
+    }
+}
+sprites.onOverlap(SpriteKind.Projectile, SpriteKind.Snake, function (sprite, otherSprite) {
+    otherSprite.destroy()
+})
 sprites.onOverlap(SpriteKind.Player, SpriteKind.Food, function (sprite, otherSprite) {
     info.changeScoreBy(1)
     otherSprite.destroy()
@@ -537,6 +615,7 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.Food, function (sprite, otherSpr
 let Bananna: Sprite = null
 let projectile: Sprite = null
 let Throw = 0
+let Snake: Sprite = null
 let mySprite: Sprite = null
 info.setScore(0)
 info.setLife(3)
@@ -685,3 +764,13 @@ controller.moveSprite(mySprite, 100, 0)
 mySprite.ay = 500
 scene.cameraFollowSprite(mySprite)
 Call_Banannas()
+Make_Enemys()
+game.onUpdate(function () {
+    for (let value of sprites.allOfKind(SpriteKind.Enemy)) {
+        if (value.isHittingTile(CollisionDirection.Left)) {
+            value.vx = 50
+        } else if (value.isHittingTile(CollisionDirection.Right)) {
+            value.vx = -50
+        }
+    }
+})
