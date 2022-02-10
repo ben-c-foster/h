@@ -221,7 +221,9 @@ controller.B.onEvent(ControllerButtonEvent.Pressed, function () {
     }
 })
 controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
-    mySprite.vy += -190
+    if (mySprite.vy == 0) {
+        mySprite.vy = -190
+    }
 })
 controller.left.onEvent(ControllerButtonEvent.Pressed, function () {
     Throw = 0
