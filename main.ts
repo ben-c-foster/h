@@ -108,6 +108,27 @@ controller.B.onEvent(ControllerButtonEvent.Pressed, function () {
         100,
         false
         )
+        if (info.score() > 0) {
+            projectile = sprites.createProjectileFromSprite(img`
+                . . . . . . . . . . . . . . . . 
+                . . . . . . . . . . . . . . . . 
+                . . . . . . . . . . . . . . . . 
+                . . . . . . . . . . . . . . . . 
+                . . . . . . . . . . . . . . . . 
+                . . . . . . . . . . . . . . . . 
+                f f . . . . . . . . . . . . . . 
+                f f 5 . . . . . . . . . . 5 5 . 
+                5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 . 
+                . 5 5 5 5 5 5 5 5 5 5 5 5 5 5 . 
+                . . 5 5 5 5 5 5 5 5 5 5 5 5 . . 
+                . . . . . . . . . . . . . . . . 
+                . . . . . . . . . . . . . . . . 
+                . . . . . . . . . . . . . . . . 
+                . . . . . . . . . . . . . . . . 
+                . . . . . . . . . . . . . . . . 
+                `, mySprite, -200, 0)
+            info.changeScoreBy(-1)
+        }
     }
     if (Throw == 1) {
         animation.runImageAnimation(
@@ -218,6 +239,27 @@ controller.B.onEvent(ControllerButtonEvent.Pressed, function () {
         100,
         false
         )
+        if (info.score() > 0) {
+            projectile = sprites.createProjectileFromSprite(img`
+                . . . . . . . . . . . . . . . . 
+                . . . . . . . . . . . . . . . . 
+                . . . . . . . . . . . . . . f f 
+                . 5 5 . . . . . . . . . . 5 f f 
+                . 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 
+                . 5 5 5 5 5 5 5 5 5 5 5 5 5 5 . 
+                . . 5 5 5 5 5 5 5 5 5 5 5 5 . . 
+                . . . . . . . . . . . . . . . . 
+                . . . . . . . . . . . . . . . . 
+                . . . . . . . . . . . . . . . . 
+                . . . . . . . . . . . . . . . . 
+                . . . . . . . . . . . . . . . . 
+                . . . . . . . . . . . . . . . . 
+                . . . . . . . . . . . . . . . . 
+                . . . . . . . . . . . . . . . . 
+                . . . . . . . . . . . . . . . . 
+                `, mySprite, 200, 0)
+            info.changeScoreBy(-1)
+        }
     }
 })
 controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
@@ -493,6 +535,7 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.Food, function (sprite, otherSpr
     otherSprite.destroy()
 })
 let Bananna: Sprite = null
+let projectile: Sprite = null
 let Throw = 0
 let mySprite: Sprite = null
 info.setScore(0)
