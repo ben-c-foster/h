@@ -139,6 +139,9 @@ controller.left.onEvent(ControllerButtonEvent.Pressed, function () {
 })
 scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile3`, function (sprite, location) {
     game.showLongText("Why Did You Jump on the Spikes???", DialogLayout.Bottom)
+    game.showLongText("You = Monkey. ", DialogLayout.Bottom)
+    game.showLongText("Spikes = Death", DialogLayout.Bottom)
+    game.showLongText("Spikes + Monkey = Dead Monkey", DialogLayout.Bottom)
     game.over(false)
 })
 controller.right.onEvent(ControllerButtonEvent.Released, function () {
