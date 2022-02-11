@@ -1,6 +1,14 @@
 namespace SpriteKind {
     export const Snake = SpriteKind.create()
 }
+sprites.onOverlap(SpriteKind.Player, SpriteKind.Snake, function (sprite, otherSprite) {
+    if (mySprite.vy > 0) {
+        mySprite.vy = -150
+        otherSprite.destroy()
+    } else {
+        info.changeLifeBy(-1)
+    }
+})
 sprites.onCreated(SpriteKind.Enemy, function (sprite) {
     Snake.vy = 100
 })
@@ -116,18 +124,18 @@ controller.B.onEvent(ControllerButtonEvent.Pressed, function () {
         )
         if (info.score() > 0) {
             projectile = sprites.createProjectileFromSprite(img`
-                . . . . . . . . . . . . . . . . 
-                . . . . . . . . . . . . . . . . 
-                . . . . . . . . . . . . . . . . 
-                . . . . . . . . . . . . . . . . 
-                . . . . . . . . . . . . . . . . 
-                . . . . . . . . . . . . . . . . 
-                f f . . . . . . . . . . . . . . 
-                f f 5 . . . . . . . . . . 5 5 . 
-                5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 . 
-                . 5 5 5 5 5 5 5 5 5 5 5 5 5 5 . 
-                . . 5 5 5 5 5 5 5 5 5 5 5 5 . . 
-                . . . . . . . . . . . . . . . . 
+                . . . . . . . . f f f . . . . . 
+                . . . . . . f f 5 5 5 f . . . . 
+                . . . . . f 5 5 5 5 5 5 f . . . 
+                . . . . f 5 5 5 5 5 5 5 5 f . . 
+                . . . . f 5 5 5 5 5 5 5 5 f . . 
+                . . f f f f f f f d 5 5 5 5 f . 
+                . . f e f . . . . f d 5 5 5 f . 
+                . . f f f . . . . f d 5 5 5 f . 
+                . . . . . . . . . . f d 5 5 f . 
+                . . . . . . . . . . f d 5 f f . 
+                . . . . . . . . . . . f 5 f . . 
+                . . . . . . . . . . . f f . . . 
                 . . . . . . . . . . . . . . . . 
                 . . . . . . . . . . . . . . . . 
                 . . . . . . . . . . . . . . . . 
@@ -247,18 +255,18 @@ controller.B.onEvent(ControllerButtonEvent.Pressed, function () {
         )
         if (info.score() > 0) {
             projectile = sprites.createProjectileFromSprite(img`
-                . . . . . . . . . . . . . . . . 
-                . . . . . . . . . . . . . . . . 
-                . . . . . . . . . . . . . . f f 
-                . 5 5 . . . . . . . . . . 5 f f 
-                . 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 
-                . 5 5 5 5 5 5 5 5 5 5 5 5 5 5 . 
-                . . 5 5 5 5 5 5 5 5 5 5 5 5 . . 
-                . . . . . . . . . . . . . . . . 
-                . . . . . . . . . . . . . . . . 
-                . . . . . . . . . . . . . . . . 
-                . . . . . . . . . . . . . . . . 
-                . . . . . . . . . . . . . . . . 
+                . . . . f f f . . . . . . . . . 
+                . . . f 5 5 5 f f . . . . . . . 
+                . . f 5 5 5 5 5 5 f . . . . . . 
+                . f 5 5 5 5 5 5 5 5 f . . . . . 
+                . f 5 5 5 5 5 5 5 5 f . . . . . 
+                f 5 5 5 5 d f f f f f f f . . . 
+                f 5 5 5 d f . . . . f e f . . . 
+                f 5 5 5 d f . . . . f f f . . . 
+                f 5 5 d f . . . . . . . . . . . 
+                f f 5 d f . . . . . . . . . . . 
+                . f 5 f . . . . . . . . . . . . 
+                . . f f . . . . . . . . . . . . 
                 . . . . . . . . . . . . . . . . 
                 . . . . . . . . . . . . . . . . 
                 . . . . . . . . . . . . . . . . 
@@ -270,7 +278,11 @@ controller.B.onEvent(ControllerButtonEvent.Pressed, function () {
 })
 controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
     if (mySprite.vy == 0) {
-        mySprite.vy = -190
+        if (Power_Up == 1) {
+            mySprite.vy = -230
+        } else {
+            mySprite.vy = -190
+        }
     }
 })
 controller.left.onEvent(ControllerButtonEvent.Pressed, function () {
@@ -607,15 +619,43 @@ function Make_Enemys () {
 }
 sprites.onOverlap(SpriteKind.Projectile, SpriteKind.Snake, function (sprite, otherSprite) {
     otherSprite.destroy()
+    sprite.destroy()
 })
+function Place_Power_Ups () {
+    for (let value of tiles.getTilesByType(sprites.swamp.swampTile13)) {
+        console.logValue("jumpingpowerlocation", 0)
+        Jumping_power = sprites.create(img`
+            . . . . . . . . . . . . . . . . 
+            . . . . . . 4 4 4 4 . . . . . . 
+            . . . . 4 4 4 5 5 4 4 4 . . . . 
+            . . . 3 3 3 3 4 4 4 4 4 4 . . . 
+            . . 4 3 3 3 3 2 2 2 1 1 4 4 . . 
+            . . 3 3 3 3 3 2 2 2 1 1 5 4 . . 
+            . 4 3 3 3 3 2 2 2 2 2 5 5 4 4 . 
+            . 4 3 3 3 2 2 2 4 4 4 4 5 4 4 . 
+            . 4 4 3 3 2 2 4 4 4 4 4 4 4 4 . 
+            . 4 2 3 3 2 2 4 4 4 4 4 4 4 4 . 
+            . . 4 2 3 3 2 4 4 4 4 4 2 4 . . 
+            . . 4 2 2 3 2 2 4 4 4 2 4 4 . . 
+            . . . 4 2 2 2 2 2 2 2 2 4 . . . 
+            . . . . 4 4 2 2 2 2 4 4 . . . . 
+            . . . . . . 4 4 4 4 . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            `, SpriteKind.Food)
+        tiles.placeOnTile(Jumping_power, value)
+        tiles.setTileAt(value, assets.tile`transparency16`)
+    }
+}
 sprites.onOverlap(SpriteKind.Player, SpriteKind.Food, function (sprite, otherSprite) {
     info.changeScoreBy(1)
     otherSprite.destroy()
 })
+let Jumping_power: Sprite = null
 let Bananna: Sprite = null
 let projectile: Sprite = null
 let Throw = 0
 let Snake: Sprite = null
+let Power_Up = 0
 let mySprite: Sprite = null
 info.setScore(0)
 info.setLife(3)
@@ -765,6 +805,8 @@ mySprite.ay = 500
 scene.cameraFollowSprite(mySprite)
 Call_Banannas()
 Make_Enemys()
+Place_Power_Ups()
+Power_Up = 0
 game.onUpdate(function () {
     for (let value of sprites.allOfKind(SpriteKind.Snake)) {
         if (value.isHittingTile(CollisionDirection.Left)) {
