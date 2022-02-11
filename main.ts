@@ -9,10 +9,18 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.Snake, function (sprite, otherSp
         otherSprite.destroy()
     } else {
         if (Invicible == 1) {
-            info.startCountdown(4)
+            if (Twice == 0) {
+                info.startCountdown(4)
+                Twice = 1
+            }
         } else {
-            info.changeLifeBy(-1)
-            Invicible = 1
+            if (Invicible == 0) {
+                info.changeLifeBy(-1)
+                Invicible = 1
+                Twice = 0
+            } else {
+                Twice = 1
+            }
         }
     }
 })
@@ -671,6 +679,7 @@ let Bananna: Sprite = null
 let projectile: Sprite = null
 let Throw = 0
 let Snake: Sprite = null
+let Twice = 0
 let mySprite: Sprite = null
 let Invicible = 0
 let Power_Up = 0
