@@ -1,13 +1,34 @@
 namespace SpriteKind {
     export const Snake = SpriteKind.create()
     export const Powerup = SpriteKind.create()
+    export const BananaPlus = SpriteKind.create()
+    export const mushroom = SpriteKind.create()
 }
+sprites.onOverlap(SpriteKind.Projectile, SpriteKind.Snake, function (sprite, otherSprite) {
+    otherSprite.destroy()
+    sprite.destroy()
+})
+sprites.onOverlap(SpriteKind.Player, SpriteKind.BananaPlus, function (sprite, otherSprite) {
+    otherSprite.destroy()
+    game.showLongText("Power up activated", DialogLayout.Bottom)
+    game.showLongText("Plus Four Bananas", DialogLayout.Bottom)
+    info.changeScoreBy(4)
+    music.powerUp.play()
+})
+sprites.onOverlap(SpriteKind.Player, SpriteKind.Powerup, function (sprite, otherSprite) {
+    otherSprite.destroy()
+    Power_Up = 1
+    music.powerUp.play()
+    game.showLongText("Power up activated", DialogLayout.Bottom)
+    game.showLongText("Jump height increased", DialogLayout.Bottom)
+})
 sprites.onOverlap(SpriteKind.Player, SpriteKind.Snake, function (sprite, otherSprite) {
-    if (mySprite.vy > 0) {
+    if (Monkey.vy > 0) {
+        music.knock.play()
         scene.cameraShake(4, 300)
         controller.vibrate(500)
-        mySprite.vy = -150
-        otherSprite.destroy()
+        Monkey.vy = -150
+        statusbars.getStatusBarAttachedTo(StatusBarKind.EnemyHealth, otherSprite).value += -30
     } else {
         if (Invicible == 1) {
             if (Twice == 0) {
@@ -25,128 +46,9 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.Snake, function (sprite, otherSp
         }
     }
 })
-sprites.onCreated(SpriteKind.Enemy, function (sprite) {
-    Snake.vy = 100
-})
-sprites.onOverlap(SpriteKind.Player, SpriteKind.Powerup, function (sprite, otherSprite) {
-    otherSprite.destroy()
-    Power_Up = 1
-    game.showLongText("Power up activated", DialogLayout.Bottom)
-    game.showLongText("Jump height increased", DialogLayout.Bottom)
-})
-controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
-    if (mySprite.vy == 0) {
-        if (Power_Up == 1) {
-            mySprite.vy = -230
-        } else {
-            mySprite.vy = -190
-        }
-    }
-})
-controller.left.onEvent(ControllerButtonEvent.Pressed, function () {
-    Throw = 0
-    animation.runImageAnimation(
-    mySprite,
-    [img`
-        . . . . f f f f f . . . . . . . 
-        . . . f e e e e e f . . . . . . 
-        . . f d d d d e e e f . . . . . 
-        . c d f d d f d e e f f . . . . 
-        . c d f d d f d e e d d f . . . 
-        c d e e d d d d e e b d c . . . 
-        c d d d d c d d e e b d c . f f 
-        c c c c c d d d e e f c . f e f 
-        . f d d d d d e e f f . . f e f 
-        . . f f f f f e e e e f . f e f 
-        . . . . f e e e e e e e f f e f 
-        . . . f e f f e f e e e e f f . 
-        . . . f e f f e f e e e e f . . 
-        . . . f d b f d b f f e f . . . 
-        . . . f d d c d d b b d f . . . 
-        . . . . f f f f f f f f f . . . 
-        `,img`
-        . . . . f f f f f . . . . . . . 
-        . . . f e e e e e f . . . . . . 
-        . . f d d d d e e e f . . . . . 
-        . c d f d d f d e e f . . . . . 
-        . c d f d d f d e e f f . . . . 
-        c d e e d d d d e e d d f . . . 
-        c d d d d c d d e e b d c . . . 
-        c c c c c d d e e e b d c . f f 
-        . f d d d d e e e f f c . f e f 
-        . f f f f f f e e e e f . f e f 
-        . f f f f e e e e e e e f f e f 
-        f d d f d d f e f e e e e f f . 
-        f d b f d b f e f e e e e f . . 
-        f f f f f f f f f f f f e f . . 
-        . . . . . . . . . f c d d f . . 
-        . . . . . . . . . . f f f f . . 
-        `,img`
-        . . . . f f f f f . . . . . . . 
-        . . . f e e e e e f . . . . . . 
-        . . f d d d d e e e f f . . . . 
-        . c d d d d d d e e d d f . . . 
-        . c d f d d f d e e b d c . . . 
-        c d d f d d f d e e b d c . f f 
-        c d e e d d d d e e f c . f e f 
-        c d d d d c d e e e f . . f e f 
-        . f c c c d e e e f f . . f e f 
-        . . f f f f f e e e e f . f e f 
-        . . . . f e e e e e e e f f f . 
-        . . f f e f e e f e e e e f . . 
-        . f e f f e e f f f e e e f . . 
-        f d d b d d c f f f f f f b f . 
-        f d d c d d d f . . f c d d f . 
-        . f f f f f f f . . . f f f . . 
-        `,img`
-        . . . . f f f f f . . . . . . . 
-        . . . f e e e e e f f f . . . . 
-        . . f d d d e e e e d d f . . . 
-        . c d d d d d e e e b d c . . . 
-        . c d d d d d d e e b d c . . . 
-        c d d f d d f d e e f c . f f . 
-        c d d f d d f d e e f . . f e f 
-        c d e e d d d d e e f . . f e f 
-        . f d d d c d e e f f . . f e f 
-        . . f f f d e e e e e f . f e f 
-        . . . . f e e e e e e e f f f . 
-        . . . . f f e e e e e b f f . . 
-        . . . f e f f e e c d d f f . . 
-        . . f d d b d d c f f f . . . . 
-        . . f d d c d d d f f . . . . . 
-        . . . f f f f f f f . . . . . . 
-        `,img`
-        . . . . f f f f f . . . . . . . 
-        . . . f e e e e e f . . . . . . 
-        . . f d d d d e e e f . . . . . 
-        . c d f d d f d e e f f . . . . 
-        . c d f d d f d e e d d f . . . 
-        c d e e d d d d e e b d c . . . 
-        c d d d d c d d e e b d c . . . 
-        c c c c c d d e e e f c . . . . 
-        . f d d d d e e e f f . . . . . 
-        . . f f f f f e e e e f . . . . 
-        . . . . f f e e e e e e f . f f 
-        . . . f e e f e e f e e f . e f 
-        . . f e e f e e f e e e f . e f 
-        . f b d f d b f b b f e f f e f 
-        . f d d f d d f d d b e f f f f 
-        . . f f f f f f f f f f f f f . 
-        `],
-    100,
-    true
-    )
-})
-scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile3`, function (sprite, location) {
-    game.showLongText("Why Did You Jump on the Spikes???", DialogLayout.Bottom)
-    game.showLongText("You = Monkey. ", DialogLayout.Bottom)
-    game.showLongText("Spikes = Death", DialogLayout.Bottom)
-    game.showLongText("Spikes + Monkey = Dead Monkey", DialogLayout.Bottom)
-    game.over(false)
-})
 controller.right.onEvent(ControllerButtonEvent.Released, function () {
     animation.runImageAnimation(
-    mySprite,
+    Monkey,
     [img`
         . . . . . . . f f f f f . . . . 
         . . . . . . f e e e e e f . . . 
@@ -164,31 +66,6 @@ controller.right.onEvent(ControllerButtonEvent.Released, function () {
         . . . f e f f b d f b d f . . . 
         . . . f d b b d d c d d f . . . 
         . . . f f f f f f f f f . . . . 
-        `],
-    200,
-    false
-    )
-})
-controller.left.onEvent(ControllerButtonEvent.Released, function () {
-    animation.runImageAnimation(
-    mySprite,
-    [img`
-        . . . . f f f f f . . . . . . . 
-        . . . f e e e e e f . . . . . . 
-        . . f d d d d e e e f . . . . . 
-        . c d f d d f d e e f f . . . . 
-        . c d f d d f d e e d d f . . . 
-        c d e e d d d d e e b d c . . . 
-        c d d d d c d d e e b d c . f f 
-        c c c c c d d d e e f c . f e f 
-        . f d d d d d e e f f . . f e f 
-        . . f f f f f e e e e f . f e f 
-        . . . . f e e e e e e e f f e f 
-        . . . f e f f e f e e e e f f . 
-        . . . f e f f e f e e e e f . . 
-        . . . f d b f d b f f e f . . . 
-        . . . f d d c d d b b d f . . . 
-        . . . . f f f f f f f f f . . . 
         `],
     200,
     false
@@ -197,102 +74,136 @@ controller.left.onEvent(ControllerButtonEvent.Released, function () {
 info.onCountdownEnd(function () {
     Invicible = 0
 })
-statusbars.onZero(StatusBarKind.Health, function (status) {
-    Snake.destroy()
+function Make_Mushrooms () {
+    for (let value of tiles.getTilesByType(sprites.castle.tileDarkGrass2)) {
+        console.logValue("mushroomslocation", 0)
+        mushrooms = sprites.create(img`
+            . . . . b b b b . . . . . . . . 
+            . . . b 3 3 3 3 b b b b . . . . 
+            . . b b 3 3 3 3 3 1 1 b b c c . 
+            . . b 1 1 3 3 3 3 3 1 1 3 3 c c 
+            . . b 1 1 3 3 3 3 3 3 3 3 3 b c 
+            . . c 3 3 3 3 3 3 3 c c c b b f 
+            . c 3 3 3 3 3 b b b b c c c b f 
+            c 3 3 3 3 b b d d d d d c c b f 
+            c 3 3 c b d d d d d d c d c c . 
+            f 3 c c c d d c d d d c d b c . 
+            f b c c c d d d c d d d d d f . 
+            f b c c c d d d d d b b b d f . 
+            f f b b c b d d d d d d d c . . 
+            . f f f f b c c d d d d f f . . 
+            . . f b d d b c c f f b b f f . 
+            . . f d d d b . . f f b b b f . 
+            `, SpriteKind.mushroom)
+        tiles.placeOnTile(mushrooms, value)
+        tiles.setTileAt(value, assets.tile`transparency16`)
+        mushrooms.vx = -50
+        animation.runImageAnimation(
+        mushrooms,
+        [img`
+            . . . . b b b b . . . . . . . . 
+            . . . b 3 3 3 3 b b b b . . . . 
+            . . b b 3 3 3 3 3 1 1 b b c c . 
+            . . b 1 1 3 3 3 3 3 1 1 3 b c c 
+            . . b 1 1 3 3 3 3 3 3 3 3 3 b c 
+            . . c 3 3 3 3 3 b c c c c b b f 
+            . c 3 3 3 3 b b d d d c c c b f 
+            c b 3 3 b b d d d d d d b c b f 
+            c 3 3 c b d d d d d d c d b c . 
+            f 3 c c c d d c d d d c d d c . 
+            f b c c c d d d c d d d d d f . 
+            f b c c c f f b d d b b b d f . 
+            f f b b f b d d b d d d d c . . 
+            . f f f f d d b b d d d c . . . 
+            . . . . b b b b f b b f f . . . 
+            . . . . . . . f f b b b f . . . 
+            `,img`
+            . . . . . . . . . . . . . . . . 
+            . . . . b b b b . . . . . . . . 
+            . . . b 3 3 3 3 b b b b . . . . 
+            . . b b 3 3 3 3 3 1 1 b b c c . 
+            . . b 1 1 3 3 3 3 1 1 1 3 c c c 
+            . . b 1 1 3 3 3 3 3 3 3 3 3 b c 
+            . . c 1 1 3 3 b b c c c c b b f 
+            . c c 3 3 b b d d d d b c c b f 
+            c b 3 3 b b d d d d d d d c b f 
+            c 3 3 b b d d d d d d c d d c . 
+            f 3 3 c b d d c d d d c d d c . 
+            f b c c c d d d c d d d d d f . 
+            f b c c c d d f f b b b b d f . 
+            f f b b c c f b d d b d d c . . 
+            . f f f c c f d d b b d c . . . 
+            . . . . . . b b b b f c . . . . 
+            `,img`
+            . . . . . . . . . . . . . . . . 
+            . . . . b b b b . . . . . . . . 
+            . . . b 3 3 3 3 b b b b . . . . 
+            . . b b 3 3 3 3 3 3 1 1 b c c . 
+            . . b 3 3 3 3 3 3 1 1 1 3 c c c 
+            . . b 1 1 3 3 3 3 3 3 3 3 3 b c 
+            . . c 1 1 3 3 3 b c c c c b b f 
+            . c c 3 3 3 b b d d d c c c b f 
+            c b 3 3 b b d d d d d d b c b f 
+            c 3 3 c b d d d d d d d d b c . 
+            f 3 c c c d d d d d d c c d c . 
+            f b c c c d d c c d d d d d f . 
+            f b c c c d d d d d b b b d f . 
+            f f b b c f f b d d d d d c . . 
+            . f f f f d d b b d d d b f . . 
+            . . . . f d d d b c c f f f . . 
+            `,img`
+            . . . . b b b b . . . . . . . . 
+            . . . b 3 3 3 3 b b b b . . . . 
+            . . b b 3 3 3 3 3 1 1 b b c c . 
+            . . b 1 1 3 3 3 3 3 1 1 3 3 c c 
+            . . b 1 1 3 3 3 3 3 3 3 3 3 b c 
+            . . c 3 3 3 3 3 3 3 c c c b b f 
+            . c 3 3 3 3 3 b b b b c c c b f 
+            c 3 3 3 3 b b d d d d d c c b f 
+            c 3 3 c b d d d d d d c d c c . 
+            f 3 c c c d d c d d d c d b c . 
+            f b c c c d d d c d d d d d f . 
+            f b c c c d d d d d b b b d f . 
+            f f b b c b d d d d d d d c . . 
+            . f f f f b c c d d d d f f . . 
+            . . f b d d b c c f f b b f f . 
+            . . f d d d b . . f f b b b f . 
+            `],
+        100,
+        true
+        )
+    }
+}
+scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile3`, function (sprite, location) {
+    Monkey.vy = -300
+    if (Invicible == 1) {
+        if (Twice == 0) {
+            info.startCountdown(4)
+            Twice = 1
+        }
+    } else {
+        if (Invicible == 0) {
+            info.changeLifeBy(-1)
+            Invicible = 1
+            Twice = 0
+        } else {
+            Twice = 1
+        }
+    }
 })
-controller.right.onEvent(ControllerButtonEvent.Pressed, function () {
-    Throw = 1
-    animation.runImageAnimation(
-    mySprite,
-    [img`
-        . . . . . . . f f f f f . . . . 
-        . . . . . . f e e e e e f . . . 
-        . . . . . f e e e d d d d f . . 
-        . . . . f f e e d f d d f d c . 
-        . . . f d d e e d f d d f d c . 
-        . . . c d b e e d d d d e e d c 
-        f f . c d b e e d d c d d d d c 
-        f e f . c f e e d d d c c c c c 
-        f e f . . f f e e d d d d d f . 
-        f e f . f e e e e f f f f f . . 
-        f e f f e e e e e e e f . . . . 
-        . f f e e e e f e f f e f . . . 
-        . . f e e e e f e f f e f . . . 
-        . . . f e f f b d f b d f . . . 
-        . . . f d b b d d c d d f . . . 
-        . . . f f f f f f f f f . . . . 
-        `,img`
-        . . . . . . . f f f f f . . . . 
-        . . . . . . f e e e e e f . . . 
-        . . . . . f e e e d d d d f . . 
-        . . . . . f e e d f d d f d c . 
-        . . . . f f e e d f d d f d c . 
-        . . . f d d e e d d d d e e d c 
-        . . . c d b e e d d c d d d d c 
-        f f . c d b e e e d d c c c c c 
-        f e f . c f f e e e d d d d f . 
-        f e f . f e e e e f f f f f f . 
-        f e f f e e e e e e e f f f f . 
-        . f f e e e e f e f d d f d d f 
-        . . f e e e e f e f b d f b d f 
-        . . f e f f f f f f f f f f f f 
-        . . f d d c f . . . . . . . . . 
-        . . f f f f . . . . . . . . . . 
-        `,img`
-        . . . . . . . f f f f f . . . . 
-        . . . . . . f e e e e e f . . . 
-        . . . . f f e e e d d d d f . . 
-        . . . f d d e e d d d d d d c . 
-        . . . c d b e e d f d d f d c . 
-        f f . c d b e e d f d d f d d c 
-        f e f . c f e e d d d d e e d c 
-        f e f . . f e e e d c d d d d c 
-        f e f . . f f e e e d c c c f . 
-        f e f . f e e e e f f f f f . . 
-        . f f f e e e e e e e f . . . . 
-        . . f e e e e f e e f e f f . . 
-        . . f e e e f f f e e f f e f . 
-        . f b f f f f f f c d d b d d f 
-        . f d d c f . . f d d d c d d f 
-        . . f f f . . . f f f f f f f . 
-        `,img`
-        . . . . . . . f f f f f . . . . 
-        . . . . f f f e e e e e f . . . 
-        . . . f d d e e e e d d d f . . 
-        . . . c d b e e e d d d d d c . 
-        . . . c d b e e d d d d d d c . 
-        . f f . c f e e d f d d f d d c 
-        f e f . . f e e d f d d f d d c 
-        f e f . . f e e d d d d e e d c 
-        f e f . . f f e e d c d d d f . 
-        f e f . f e e e e e d f f f . . 
-        . f f f e e e e e e e f . . . . 
-        . . f f b e e e e e f f . . . . 
-        . . f f d d c e e f f e f . . . 
-        . . . . f f f c d d b d d f . . 
-        . . . . . f f d d d c d d f . . 
-        . . . . . . f f f f f f f . . . 
-        `,img`
-        . . . . . . . f f f f f . . . . 
-        . . . . . . f e e e e e f . . . 
-        . . . . . f e e e d d d d f . . 
-        . . . . f f e e d f d d f d c . 
-        . . . f d d e e d f d d f d c . 
-        . . . c d b e e d d d d e e d c 
-        . . . c d b e e d d c d d d d c 
-        . . . . c f e e e d d c c c c c 
-        . . . . . f f e e e d d d d f . 
-        . . . . f e e e e f f f f f . . 
-        f f . f e e e e e e f f . . . . 
-        f e . f e e f e e f e e f . . . 
-        f e . f e e e f e e f e e f . . 
-        f e f f e f b b f b d f d b f . 
-        f f f f e b d d f d d f d d f . 
-        . f f f f f f f f f f f f f . . 
-        `],
-    100,
-    true
-    )
+controller.up.onEvent(ControllerButtonEvent.Pressed, function () {
+    game.showLongText("Enemy tips", DialogLayout.Bottom)
+    game.showLongText("Snake: To defeat jump on its head or throw a banana.", DialogLayout.Bottom)
+    if (game.ask("Continue?")) {
+        game.showLongText("Mushrooms: You can't kill mushrooms, just try avoiding them", DialogLayout.Bottom)
+        if (game.ask("Continue?")) {
+            game.showLongText("Spikes: If you land on a spike it will kill you", DialogLayout.Bottom)
+        } else {
+        	
+        }
+    } else {
+    	
+    }
 })
 function Call_Banannas () {
     for (let value of tiles.getTilesByType(sprites.swamp.swampTile3)) {
@@ -340,6 +251,8 @@ function Make_Enemys_snake () {
             . f 6 1 1 1 1 1 1 6 6 6 f . . . 
             . . c c c c c c c c c f . . . . 
             `, SpriteKind.Snake)
+        statusbar = statusbars.create(20, 4, StatusBarKind.EnemyHealth)
+        statusbar.attachToSprite(Snake)
         tiles.placeOnTile(Snake, value)
         tiles.setTileAt(value, assets.tile`transparency16`)
         Snake.vx = 50
@@ -388,7 +301,7 @@ function Make_Enemys_snake () {
 controller.B.onEvent(ControllerButtonEvent.Pressed, function () {
     if (Throw == 0) {
         animation.runImageAnimation(
-        mySprite,
+        Monkey,
         [img`
             . . . . f f f f f . . . . . . . 
             . . . f e e e e e f . . . . . . 
@@ -513,13 +426,13 @@ controller.B.onEvent(ControllerButtonEvent.Pressed, function () {
                 . . . . . . . . . . . . . . . . 
                 . . . . . . . . . . . . . . . . 
                 . . . . . . . . . . . . . . . . 
-                `, mySprite, -200, 0)
+                `, Monkey, -200, 0)
             info.changeScoreBy(-1)
         }
     }
     if (Throw == 1) {
         animation.runImageAnimation(
-        mySprite,
+        Monkey,
         [img`
             . . . . . . . f f f f f . . . . 
             . . . . . . f e e e e e f . . . 
@@ -644,15 +557,164 @@ controller.B.onEvent(ControllerButtonEvent.Pressed, function () {
                 . . . . . . . . . . . . . . . . 
                 . . . . . . . . . . . . . . . . 
                 . . . . . . . . . . . . . . . . 
-                `, mySprite, 200, 0)
+                `, Monkey, 200, 0)
             info.changeScoreBy(-1)
         }
     }
 })
-sprites.onOverlap(SpriteKind.Projectile, SpriteKind.Snake, function (sprite, otherSprite) {
-    otherSprite.destroy()
-    sprite.destroy()
+controller.left.onEvent(ControllerButtonEvent.Released, function () {
+    animation.runImageAnimation(
+    Monkey,
+    [img`
+        . . . . f f f f f . . . . . . . 
+        . . . f e e e e e f . . . . . . 
+        . . f d d d d e e e f . . . . . 
+        . c d f d d f d e e f f . . . . 
+        . c d f d d f d e e d d f . . . 
+        c d e e d d d d e e b d c . . . 
+        c d d d d c d d e e b d c . f f 
+        c c c c c d d d e e f c . f e f 
+        . f d d d d d e e f f . . f e f 
+        . . f f f f f e e e e f . f e f 
+        . . . . f e e e e e e e f f e f 
+        . . . f e f f e f e e e e f f . 
+        . . . f e f f e f e e e e f . . 
+        . . . f d b f d b f f e f . . . 
+        . . . f d d c d d b b d f . . . 
+        . . . . f f f f f f f f f . . . 
+        `],
+    200,
+    false
+    )
 })
+controller.right.onEvent(ControllerButtonEvent.Pressed, function () {
+    Throw = 1
+    animation.runImageAnimation(
+    Monkey,
+    [img`
+        . . . . . . . f f f f f . . . . 
+        . . . . . . f e e e e e f . . . 
+        . . . . . f e e e d d d d f . . 
+        . . . . f f e e d f d d f d c . 
+        . . . f d d e e d f d d f d c . 
+        . . . c d b e e d d d d e e d c 
+        f f . c d b e e d d c d d d d c 
+        f e f . c f e e d d d c c c c c 
+        f e f . . f f e e d d d d d f . 
+        f e f . f e e e e f f f f f . . 
+        f e f f e e e e e e e f . . . . 
+        . f f e e e e f e f f e f . . . 
+        . . f e e e e f e f f e f . . . 
+        . . . f e f f b d f b d f . . . 
+        . . . f d b b d d c d d f . . . 
+        . . . f f f f f f f f f . . . . 
+        `,img`
+        . . . . . . . f f f f f . . . . 
+        . . . . . . f e e e e e f . . . 
+        . . . . . f e e e d d d d f . . 
+        . . . . . f e e d f d d f d c . 
+        . . . . f f e e d f d d f d c . 
+        . . . f d d e e d d d d e e d c 
+        . . . c d b e e d d c d d d d c 
+        f f . c d b e e e d d c c c c c 
+        f e f . c f f e e e d d d d f . 
+        f e f . f e e e e f f f f f f . 
+        f e f f e e e e e e e f f f f . 
+        . f f e e e e f e f d d f d d f 
+        . . f e e e e f e f b d f b d f 
+        . . f e f f f f f f f f f f f f 
+        . . f d d c f . . . . . . . . . 
+        . . f f f f . . . . . . . . . . 
+        `,img`
+        . . . . . . . f f f f f . . . . 
+        . . . . . . f e e e e e f . . . 
+        . . . . f f e e e d d d d f . . 
+        . . . f d d e e d d d d d d c . 
+        . . . c d b e e d f d d f d c . 
+        f f . c d b e e d f d d f d d c 
+        f e f . c f e e d d d d e e d c 
+        f e f . . f e e e d c d d d d c 
+        f e f . . f f e e e d c c c f . 
+        f e f . f e e e e f f f f f . . 
+        . f f f e e e e e e e f . . . . 
+        . . f e e e e f e e f e f f . . 
+        . . f e e e f f f e e f f e f . 
+        . f b f f f f f f c d d b d d f 
+        . f d d c f . . f d d d c d d f 
+        . . f f f . . . f f f f f f f . 
+        `,img`
+        . . . . . . . f f f f f . . . . 
+        . . . . f f f e e e e e f . . . 
+        . . . f d d e e e e d d d f . . 
+        . . . c d b e e e d d d d d c . 
+        . . . c d b e e d d d d d d c . 
+        . f f . c f e e d f d d f d d c 
+        f e f . . f e e d f d d f d d c 
+        f e f . . f e e d d d d e e d c 
+        f e f . . f f e e d c d d d f . 
+        f e f . f e e e e e d f f f . . 
+        . f f f e e e e e e e f . . . . 
+        . . f f b e e e e e f f . . . . 
+        . . f f d d c e e f f e f . . . 
+        . . . . f f f c d d b d d f . . 
+        . . . . . f f d d d c d d f . . 
+        . . . . . . f f f f f f f . . . 
+        `,img`
+        . . . . . . . f f f f f . . . . 
+        . . . . . . f e e e e e f . . . 
+        . . . . . f e e e d d d d f . . 
+        . . . . f f e e d f d d f d c . 
+        . . . f d d e e d f d d f d c . 
+        . . . c d b e e d d d d e e d c 
+        . . . c d b e e d d c d d d d c 
+        . . . . c f e e e d d c c c c c 
+        . . . . . f f e e e d d d d f . 
+        . . . . f e e e e f f f f f . . 
+        f f . f e e e e e e f f . . . . 
+        f e . f e e f e e f e e f . . . 
+        f e . f e e e f e e f e e f . . 
+        f e f f e f b b f b d f d b f . 
+        f f f f e b d d f d d f d d f . 
+        . f f f f f f f f f f f f f . . 
+        `],
+    100,
+    true
+    )
+})
+controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
+    if (Monkey.vy == 0) {
+        if (Power_Up == 1) {
+            Monkey.vy = -230
+        } else {
+            Monkey.vy = -190
+        }
+    }
+})
+function Make_Banana () {
+    for (let value of tiles.getTilesByType(sprites.swamp.swampTile19)) {
+        console.logValue("bananapluslocation", 0)
+        Banana_Plus = sprites.create(img`
+            . . . . . . . . . . . . . . . . 
+            . . . . . . 6 6 6 6 . . . . . . 
+            . . . . 6 6 6 5 5 6 6 6 . . . . 
+            . . . 7 7 7 7 6 6 6 6 6 6 . . . 
+            . . 6 7 7 7 7 8 8 8 1 1 6 6 . . 
+            . . 7 7 7 7 7 8 8 8 1 1 5 6 . . 
+            . 6 7 7 7 7 8 8 8 8 8 5 5 6 6 . 
+            . 6 7 7 7 8 8 8 6 6 6 6 5 6 6 . 
+            . 6 6 7 7 8 8 6 6 6 6 6 6 6 6 . 
+            . 6 8 7 7 8 8 6 6 6 6 6 6 6 6 . 
+            . . 6 8 7 7 8 6 6 6 6 6 8 6 . . 
+            . . 6 8 8 7 8 8 6 6 6 8 6 6 . . 
+            . . . 6 8 8 8 8 8 8 8 8 6 . . . 
+            . . . . 6 6 8 8 8 8 6 6 . . . . 
+            . . . . . . 6 6 6 6 . . . . . . 
+            . . . . . . . . . . . . . . . . 
+            `, SpriteKind.BananaPlus)
+        tiles.placeOnTile(Banana_Plus, value)
+        tiles.setTileAt(value, assets.tile`transparency16`)
+    }
+}
 function Place_Power_Ups () {
     for (let value of tiles.getTilesByType(sprites.swamp.swampTile13)) {
         console.logValue("jumpingpowerlocation", 0)
@@ -678,19 +740,140 @@ function Place_Power_Ups () {
         tiles.setTileAt(value, assets.tile`transparency16`)
     }
 }
+statusbars.onZero(StatusBarKind.EnemyHealth, function (status) {
+    status.spriteAttachedTo().destroy()
+})
+sprites.onCreated(SpriteKind.Enemy, function (sprite) {
+    Snake.vy = 100
+})
+controller.left.onEvent(ControllerButtonEvent.Pressed, function () {
+    Throw = 0
+    animation.runImageAnimation(
+    Monkey,
+    [img`
+        . . . . f f f f f . . . . . . . 
+        . . . f e e e e e f . . . . . . 
+        . . f d d d d e e e f . . . . . 
+        . c d f d d f d e e f f . . . . 
+        . c d f d d f d e e d d f . . . 
+        c d e e d d d d e e b d c . . . 
+        c d d d d c d d e e b d c . f f 
+        c c c c c d d d e e f c . f e f 
+        . f d d d d d e e f f . . f e f 
+        . . f f f f f e e e e f . f e f 
+        . . . . f e e e e e e e f f e f 
+        . . . f e f f e f e e e e f f . 
+        . . . f e f f e f e e e e f . . 
+        . . . f d b f d b f f e f . . . 
+        . . . f d d c d d b b d f . . . 
+        . . . . f f f f f f f f f . . . 
+        `,img`
+        . . . . f f f f f . . . . . . . 
+        . . . f e e e e e f . . . . . . 
+        . . f d d d d e e e f . . . . . 
+        . c d f d d f d e e f . . . . . 
+        . c d f d d f d e e f f . . . . 
+        c d e e d d d d e e d d f . . . 
+        c d d d d c d d e e b d c . . . 
+        c c c c c d d e e e b d c . f f 
+        . f d d d d e e e f f c . f e f 
+        . f f f f f f e e e e f . f e f 
+        . f f f f e e e e e e e f f e f 
+        f d d f d d f e f e e e e f f . 
+        f d b f d b f e f e e e e f . . 
+        f f f f f f f f f f f f e f . . 
+        . . . . . . . . . f c d d f . . 
+        . . . . . . . . . . f f f f . . 
+        `,img`
+        . . . . f f f f f . . . . . . . 
+        . . . f e e e e e f . . . . . . 
+        . . f d d d d e e e f f . . . . 
+        . c d d d d d d e e d d f . . . 
+        . c d f d d f d e e b d c . . . 
+        c d d f d d f d e e b d c . f f 
+        c d e e d d d d e e f c . f e f 
+        c d d d d c d e e e f . . f e f 
+        . f c c c d e e e f f . . f e f 
+        . . f f f f f e e e e f . f e f 
+        . . . . f e e e e e e e f f f . 
+        . . f f e f e e f e e e e f . . 
+        . f e f f e e f f f e e e f . . 
+        f d d b d d c f f f f f f b f . 
+        f d d c d d d f . . f c d d f . 
+        . f f f f f f f . . . f f f . . 
+        `,img`
+        . . . . f f f f f . . . . . . . 
+        . . . f e e e e e f f f . . . . 
+        . . f d d d e e e e d d f . . . 
+        . c d d d d d e e e b d c . . . 
+        . c d d d d d d e e b d c . . . 
+        c d d f d d f d e e f c . f f . 
+        c d d f d d f d e e f . . f e f 
+        c d e e d d d d e e f . . f e f 
+        . f d d d c d e e f f . . f e f 
+        . . f f f d e e e e e f . f e f 
+        . . . . f e e e e e e e f f f . 
+        . . . . f f e e e e e b f f . . 
+        . . . f e f f e e c d d f f . . 
+        . . f d d b d d c f f f . . . . 
+        . . f d d c d d d f f . . . . . 
+        . . . f f f f f f f . . . . . . 
+        `,img`
+        . . . . f f f f f . . . . . . . 
+        . . . f e e e e e f . . . . . . 
+        . . f d d d d e e e f . . . . . 
+        . c d f d d f d e e f f . . . . 
+        . c d f d d f d e e d d f . . . 
+        c d e e d d d d e e b d c . . . 
+        c d d d d c d d e e b d c . . . 
+        c c c c c d d e e e f c . . . . 
+        . f d d d d e e e f f . . . . . 
+        . . f f f f f e e e e f . . . . 
+        . . . . f f e e e e e e f . f f 
+        . . . f e e f e e f e e f . e f 
+        . . f e e f e e f e e e f . e f 
+        . f b d f d b f b b f e f f e f 
+        . f d d f d d f d d b e f f f f 
+        . . f f f f f f f f f f f f f . 
+        `],
+    100,
+    true
+    )
+})
+sprites.onOverlap(SpriteKind.Player, SpriteKind.mushroom, function (sprite, otherSprite) {
+    if (Invicible == 1) {
+        if (Twice == 0) {
+            info.startCountdown(4)
+            Twice = 1
+        }
+    } else {
+        if (Invicible == 0) {
+            info.changeLifeBy(-1)
+            Invicible = 1
+            Twice = 0
+        } else {
+            Twice = 1
+        }
+    }
+})
 sprites.onOverlap(SpriteKind.Player, SpriteKind.Food, function (sprite, otherSprite) {
+    music.baDing.play()
     info.changeScoreBy(1)
     otherSprite.destroy()
 })
 let Jumping_power: Sprite = null
+let Banana_Plus: Sprite = null
 let projectile: Sprite = null
-let Bananna: Sprite = null
 let Throw = 0
+let statusbar: StatusBarSprite = null
 let Snake: Sprite = null
+let Bananna: Sprite = null
+let mushrooms: Sprite = null
 let Twice = 0
-let mySprite: Sprite = null
+let Monkey: Sprite = null
 let Invicible = 0
 let Power_Up = 0
+controller.combos.setTimeout(3)
 game.setDialogFrame(img`
     88888..8888888888888888....88888.
     87768888777877787778777888867778.
@@ -747,7 +930,7 @@ game.setDialogCursor(img`
 Power_Up = 0
 Invicible = 0
 info.setScore(0)
-info.setLife(3)
+info.setLife(4)
 scene.setBackgroundImage(img`
     7777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777
     7777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777
@@ -870,10 +1053,10 @@ scene.setBackgroundImage(img`
     7777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777
     7777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777
     `)
-game.showLongText("Welcome to the game Monkey Jumper. ", DialogLayout.Bottom)
-game.showLongText("In the game you are a monkey who collects bananas. Bananas are your weapons, press \"B\" to throw a banana once you have collected it. Special orbs called Power ups might give you more bananas or make you jump higher. Lastly press \"A\" to jump and watch out for the snakes, you can kill them by throwing a banana or jumping on thier heads", DialogLayout.Bottom)
+game.showLongText("Welcome to the game Monkey Jumper. ", DialogLayout.Full)
+game.showLongText("In the game you are a monkey who collects bananas. Bananas are your weapons, press \"B\" to throw a banana once you have collected it. Special orbs called Power ups might give you more bananas or make you jump higher. Lastly press \"A\" to jump.", DialogLayout.Full)
 tiles.setCurrentTilemap(tilemap`level2`)
-mySprite = sprites.create(img`
+Monkey = sprites.create(img`
     . . . . f f f f f . . . . . . . 
     . . . f e e e e e f . . . . . . 
     . . f d d d d e e e f . . . . . 
@@ -891,12 +1074,14 @@ mySprite = sprites.create(img`
     . f d d f e e e d d b e f f f f 
     . . f f f f f f f f f f f f f . 
     `, SpriteKind.Player)
-controller.moveSprite(mySprite, 100, 0)
-mySprite.ay = 500
-scene.cameraFollowSprite(mySprite)
+controller.moveSprite(Monkey, 100, 0)
+Monkey.ay = 500
+scene.cameraFollowSprite(Monkey)
 Call_Banannas()
 Make_Enemys_snake()
 Place_Power_Ups()
+Make_Banana()
+Make_Mushrooms()
 game.onUpdate(function () {
     for (let value of sprites.allOfKind(SpriteKind.Snake)) {
         if (value.isHittingTile(CollisionDirection.Left)) {
@@ -978,6 +1163,161 @@ game.onUpdate(function () {
                 . c 6 1 1 1 1 1 6 6 6 6 6 c . . 
                 . . c 6 1 1 1 1 1 7 6 6 c c . . 
                 . . . c c c c c c c c c c . . . 
+                `],
+            100,
+            true
+            )
+            value.vx = -50
+        }
+    }
+    for (let value of sprites.allOfKind(SpriteKind.mushroom)) {
+        if (value.isHittingTile(CollisionDirection.Left)) {
+            animation.runImageAnimation(
+            value,
+            [img`
+                . . . . b b b b . . . . . . . . 
+                . . . b 3 3 3 3 b b b b . . . . 
+                . . b b 3 3 3 3 3 1 1 b b c c . 
+                . . b 1 1 3 3 3 3 3 1 1 3 b c c 
+                . . b 1 1 3 3 3 3 3 3 3 3 3 b c 
+                . . c 3 3 3 3 3 b c c c c b b f 
+                . c 3 3 3 3 b b d d d c c c b f 
+                c b 3 3 b b d d d d d d b c b f 
+                c 3 3 c b d d d d d d c d b c . 
+                f 3 c c c d d c d d d c d d c . 
+                f b c c c d d d c d d d d d f . 
+                f b c c c f f b d d b b b d f . 
+                f f b b f b d d b d d d d c . . 
+                . f f f f d d b b d d d c . . . 
+                . . . . b b b b f b b f f . . . 
+                . . . . . . . f f b b b f . . . 
+                `,img`
+                . . . . . . . . . . . . . . . . 
+                . . . . b b b b . . . . . . . . 
+                . . . b 3 3 3 3 b b b b . . . . 
+                . . b b 3 3 3 3 3 1 1 b b c c . 
+                . . b 1 1 3 3 3 3 1 1 1 3 c c c 
+                . . b 1 1 3 3 3 3 3 3 3 3 3 b c 
+                . . c 1 1 3 3 b b c c c c b b f 
+                . c c 3 3 b b d d d d b c c b f 
+                c b 3 3 b b d d d d d d d c b f 
+                c 3 3 b b d d d d d d c d d c . 
+                f 3 3 c b d d c d d d c d d c . 
+                f b c c c d d d c d d d d d f . 
+                f b c c c d d f f b b b b d f . 
+                f f b b c c f b d d b d d c . . 
+                . f f f c c f d d b b d c . . . 
+                . . . . . . b b b b f c . . . . 
+                `,img`
+                . . . . . . . . . . . . . . . . 
+                . . . . b b b b . . . . . . . . 
+                . . . b 3 3 3 3 b b b b . . . . 
+                . . b b 3 3 3 3 3 3 1 1 b c c . 
+                . . b 3 3 3 3 3 3 1 1 1 3 c c c 
+                . . b 1 1 3 3 3 3 3 3 3 3 3 b c 
+                . . c 1 1 3 3 3 b c c c c b b f 
+                . c c 3 3 3 b b d d d c c c b f 
+                c b 3 3 b b d d d d d d b c b f 
+                c 3 3 c b d d d d d d d d b c . 
+                f 3 c c c d d d d d d c c d c . 
+                f b c c c d d c c d d d d d f . 
+                f b c c c d d d d d b b b d f . 
+                f f b b c f f b d d d d d c . . 
+                . f f f f d d b b d d d b f . . 
+                . . . . f d d d b c c f f f . . 
+                `,img`
+                . . . . b b b b . . . . . . . . 
+                . . . b 3 3 3 3 b b b b . . . . 
+                . . b b 3 3 3 3 3 1 1 b b c c . 
+                . . b 1 1 3 3 3 3 3 1 1 3 3 c c 
+                . . b 1 1 3 3 3 3 3 3 3 3 3 b c 
+                . . c 3 3 3 3 3 3 3 c c c b b f 
+                . c 3 3 3 3 3 b b b b c c c b f 
+                c 3 3 3 3 b b d d d d d c c b f 
+                c 3 3 c b d d d d d d c d c c . 
+                f 3 c c c d d c d d d c d b c . 
+                f b c c c d d d c d d d d d f . 
+                f b c c c d d d d d b b b d f . 
+                f f b b c b d d d d d d d c . . 
+                . f f f f b c c d d d d f f . . 
+                . . f b d d b c c f f b b f f . 
+                . . f d d d b . . f f b b b f . 
+                `],
+            100,
+            true
+            )
+            value.vx = 50
+        } else if (value.isHittingTile(CollisionDirection.Right)) {
+            animation.runImageAnimation(
+            value,
+            [img`
+                . . . . . . . . b b b b . . . . 
+                . . . . b b b b 3 3 3 3 b . . . 
+                . c c b b 1 1 3 3 3 3 3 b b . . 
+                c c b 3 1 1 3 3 3 3 3 1 1 b . . 
+                c b 3 3 3 3 3 3 3 3 3 1 1 b . . 
+                f b b c c c c b 3 3 3 3 3 c . . 
+                f b c c c d d d b b 3 3 3 3 c . 
+                f b c b d d d d d d b b 3 3 b c 
+                . c b d c d d d d d d b c 3 3 c 
+                . c d d c d d d c d d c c c 3 f 
+                . f d d d d d c d d d c c c b f 
+                . f d b b b d d b f f c c c b f 
+                . . c d d d d b d d b f b b f f 
+                . . . c d d d b b d d f f f f . 
+                . . . f f b b f b b b b . . . . 
+                . . . f b b b f f . . . . . . . 
+                `,img`
+                . . . . . . . . . . . . . . . . 
+                . . . . . . . . b b b b . . . . 
+                . . . . b b b b 3 3 3 3 b . . . 
+                . c c b b 1 1 3 3 3 3 3 b b . . 
+                c c c 3 1 1 1 3 3 3 3 1 1 b . . 
+                c b 3 3 3 3 3 3 3 3 3 1 1 b . . 
+                f b b c c c c b b 3 3 1 1 c . . 
+                f b c c b d d d d b b 3 3 c c . 
+                f b c d d d d d d d b b 3 3 b c 
+                . c d d c d d d d d d b b 3 3 c 
+                . c d d c d d d c d d b c 3 3 f 
+                . f d d d d d c d d d c c c b f 
+                . f d b b b b f f d d c c c b f 
+                . . c d d b d d b f c c b b f f 
+                . . . c d b b d d f c c f f f . 
+                . . . . c f b b b b . . . . . . 
+                `,img`
+                . . . . . . . . . . . . . . . . 
+                . . . . . . . . b b b b . . . . 
+                . . . . b b b b 3 3 3 3 b . . . 
+                . c c b 1 1 3 3 3 3 3 3 b b . . 
+                c c c 3 1 1 1 3 3 3 3 3 3 b . . 
+                c b 3 3 3 3 3 3 3 3 3 1 1 b . . 
+                f b b c c c c b 3 3 3 1 1 c . . 
+                f b c c c d d d b b 3 3 3 c c . 
+                f b c b d d d d d d b b 3 3 b c 
+                . c b d d d d d d d d b c 3 3 c 
+                . c d c c d d d d d d c c c 3 f 
+                . f d d d d d c c d d c c c b f 
+                . f d b b b d d d d d c c c b f 
+                . . c d d d d d b f f c b b f f 
+                . . f b d d d b b d d f f f f . 
+                . . f f f c c b d d d f . . . . 
+                `,img`
+                . . . . . . . . b b b b . . . . 
+                . . . . b b b b 3 3 3 3 b . . . 
+                . c c b b 1 1 3 3 3 3 3 b b . . 
+                c c 3 3 1 1 3 3 3 3 3 1 1 b . . 
+                c b 3 3 3 3 3 3 3 3 3 1 1 b . . 
+                f b b c c c 3 3 3 3 3 3 3 c . . 
+                f b c c c b b b b 3 3 3 3 3 c . 
+                f b c c d d d d d b b 3 3 3 3 c 
+                . c c d c d d d d d d b c 3 3 c 
+                . c b d c d d d c d d c c c 3 f 
+                . f d d d d d c d d d c c c b f 
+                . f d b b b d d d d d c c c b f 
+                . . c d d d d d d d b c b b f f 
+                . . f f d d d d c c b f f f f . 
+                . f f b b f f c c b d d b f . . 
+                . f b b b f f . . b d d d f . . 
                 `],
             100,
             true
