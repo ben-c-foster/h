@@ -29,6 +29,46 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.Snake, function (sprite, otherSp
         }
     }
 })
+function MOOSIC () {
+    music.playTone(523, music.beat(BeatFraction.Quarter))
+    music.playTone(587, music.beat(BeatFraction.Quarter))
+    music.playTone(622, music.beat(BeatFraction.Quarter))
+    music.playTone(659, music.beat(BeatFraction.Whole))
+    music.playTone(784, music.beat(BeatFraction.Quarter))
+    music.playTone(659, music.beat(BeatFraction.Quarter))
+    music.playTone(784, music.beat(BeatFraction.Quarter))
+    music.playTone(659, music.beat(BeatFraction.Quarter))
+    music.playTone(784, music.beat(BeatFraction.Quarter))
+    music.playTone(659, music.beat(BeatFraction.Quarter))
+    music.playTone(784, music.beat(BeatFraction.Quarter))
+    music.playTone(659, music.beat(BeatFraction.Quarter))
+    music.playTone(587, music.beat(BeatFraction.Whole))
+    music.playTone(622, music.beat(BeatFraction.Whole))
+    music.playTone(587, music.beat(BeatFraction.Whole))
+    music.playTone(523, music.beat(BeatFraction.Whole))
+    music.playTone(440, music.beat(BeatFraction.Whole))
+    music.rest(music.beat(BeatFraction.Whole))
+    music.playTone(208, music.beat(BeatFraction.Whole))
+    music.playTone(220, music.beat(BeatFraction.Whole))
+    music.playTone(523, music.beat(BeatFraction.Whole))
+    music.playTone(622, music.beat(BeatFraction.Whole))
+    music.playTone(494, music.beat(BeatFraction.Whole))
+    music.rest(music.beat(BeatFraction.Whole))
+    music.playTone(208, music.beat(BeatFraction.Whole))
+    music.playTone(220, music.beat(BeatFraction.Whole))
+    music.playTone(523, music.beat(BeatFraction.Whole))
+    music.playTone(622, music.beat(BeatFraction.Whole))
+    music.playTone(494, music.beat(BeatFraction.Whole))
+    music.rest(music.beat(BeatFraction.Whole))
+    music.playTone(208, music.beat(BeatFraction.Whole))
+    music.playTone(220, music.beat(BeatFraction.Whole))
+    music.playTone(262, music.beat(BeatFraction.Whole))
+    music.playTone(311, music.beat(BeatFraction.Whole))
+    music.playTone(330, music.beat(BeatFraction.Whole))
+    music.playTone(294, music.beat(BeatFraction.Whole))
+    music.playTone(262, music.beat(BeatFraction.Whole))
+    music.playTone(294, music.beat(BeatFraction.Whole))
+}
 sprites.onCreated(SpriteKind.Enemy, function (sprite) {
     Snake.vy = 100
 })
@@ -450,16 +490,16 @@ controller.right.onEvent(ControllerButtonEvent.Released, function () {
         . . . . f f e e d f d d f d c . 
         . . . f d d e e d f d d f d c . 
         . . . c d b e e d d d d e e d c 
-        f f . c d b e e d d c d d d d c 
-        f e f . c f e e d d d c c c c c 
-        f e f . . f f e e d d d d d f . 
-        f e f . f e e e e f f f f f . . 
-        f e f f e e e e e e e f . . . . 
-        . f f e e e e f e f f e f . . . 
-        . . f e e e e f e f f e f . . . 
-        . . . f e f f b d f b d f . . . 
-        . . . f d b b d d c d d f . . . 
-        . . . f f f f f f f f f . . . . 
+        . . . c d b e e d d c d d d d c 
+        . . . . c f e e e d d c c c c c 
+        . . . . . f f e e e d d d d f . 
+        . . . . f e e e e f f f f f . . 
+        f f . f e e e e e e f f . . . . 
+        f e . f e e f e e f e e f . . . 
+        f e . f e e e f e e f e e f . . 
+        f e f f e f b b f b d f d b f . 
+        f f f f e b d d f d d f d d f . 
+        . f f f f f f f f f f f f f . . 
         `],
     200,
     false
@@ -475,16 +515,16 @@ controller.left.onEvent(ControllerButtonEvent.Released, function () {
         . c d f d d f d e e f f . . . . 
         . c d f d d f d e e d d f . . . 
         c d e e d d d d e e b d c . . . 
-        c d d d d c d d e e b d c . f f 
-        c c c c c d d d e e f c . f e f 
-        . f d d d d d e e f f . . f e f 
-        . . f f f f f e e e e f . f e f 
-        . . . . f e e e e e e e f f e f 
-        . . . f e f f e f e e e e f f . 
-        . . . f e f f e f e e e e f . . 
-        . . . f d b f d b f f e f . . . 
-        . . . f d d c d d b b d f . . . 
-        . . . . f f f f f f f f f . . . 
+        c d d d d c d d e e b d c . . . 
+        c c c c c d d e e e f c . . . . 
+        . f d d d d e e e f f . . . . . 
+        . . f f f f f e e e e f . . . . 
+        . . . . f f e e e e e e f . f f 
+        . . . f e e f e e f e e f . e f 
+        . . f e e f e e f e e e f . e f 
+        . f b d f d b f b b f e f f e f 
+        . f d d f d d f d d b e f f f f 
+        . . f f f f f f f f f f f f f . 
         `],
     200,
     false
@@ -691,18 +731,25 @@ controller.right.onEvent(ControllerButtonEvent.Pressed, function () {
     )
 })
 sprites.onOverlap(SpriteKind.Player, SpriteKind.mushroom, function (sprite, otherSprite) {
-    if (Invicible == 1) {
-        if (Twice == 0) {
-            info.startCountdown(4)
-            Twice = 1
-        }
+    if (Monkey.vy > 0) {
+        music.footstep.play()
+        scene.cameraShake(4, 300)
+        controller.vibrate(500)
+        Monkey.vy = -150
     } else {
-        if (Invicible == 0) {
-            info.changeLifeBy(-1)
-            Invicible = 1
-            Twice = 0
+        if (Invicible == 1) {
+            if (Twice == 0) {
+                info.startCountdown(4)
+                Twice = 1
+            }
         } else {
-            Twice = 1
+            if (Invicible == 0) {
+                info.changeLifeBy(-1)
+                Invicible = 1
+                Twice = 0
+            } else {
+                Twice = 1
+            }
         }
     }
 })
@@ -870,6 +917,218 @@ function Place_Power_Ups () {
         tiles.setTileAt(value, assets.tile`transparency16`)
     }
 }
+function Starting () {
+    game.setDialogFrame(img`
+        88888..8888888888888888....88888.
+        87768888777877787778777888867778.
+        87777686767876767678767688777778.
+        87767767667676676676766786776768.
+        8677676767767767677677678676778..
+        .877768777686767776867678667768..
+        .886668888888888888888888886688..
+        .888888866666666666666668877768..
+        88677786666666666666666668766778.
+        87766686666666666666666668776678.
+        87667786666666666666666668677778.
+        87777686666666666666666668866888.
+        88866886666666666666666668677778.
+        87777686666666666666666668776678.
+        87667786666666666666666668666778.
+        87766786666666666666666668777688.
+        88677786666666666666666668766778.
+        87766686666666666666666668776678.
+        87667786666666666666666668677778.
+        87777686666666666666666668866888.
+        88866886666666666666666668677778.
+        87777686666666666666666668776678.
+        87667786666666666666666668666778.
+        87766786666666666666666668777688.
+        .867778866666666666666668888888..
+        .886688888888888888888888866688..
+        .867766876768677767686777867778..
+        .8776768767767767677677676767768.
+        86767768766767667667676676776778.
+        87777788676787676767876768677778.
+        87776888877787778777877788886778.
+        88888..88888888888888888....8888.
+        .................................
+        `)
+    game.setDialogCursor(img`
+        . . . . f f f f f . . . . . . . 
+        . . . f e e e e e f . . . . . . 
+        . . f d d d d e e e f . . . . . 
+        . c d f d d f d e e f f . . . . 
+        . c d f d d f d e e d d f . . . 
+        c d e e d d d d e e b d c . . . 
+        c d d d d c d d e e b d c . f f 
+        c c c c c d d d e e f c . f e f 
+        . f d d d d d e e f f . . f e f 
+        . . f f f f f e e e e f . f e f 
+        . . . . f e e e e e e e f f e f 
+        . . . f e f f e f e e e e f f . 
+        . . . f e f f e f e e e e f . . 
+        . . . f d b f d b f f e f . . . 
+        . . . f d d c d d b b d f . . . 
+        . . . . f f f f f f f f f . . . 
+        `)
+    Power_Up = 0
+    Invicible = 0
+    info.setScore(0)
+    info.setLife(4)
+    scene.setBackgroundImage(img`
+        5555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555...
+        5555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555
+        5555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555
+        5555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555
+        5555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555
+        555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555dddddd5555555555555555555555555
+        5555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555dddddddddd55555555555555555555555
+        55555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555dddddddddddddd555555555555555555555
+        5555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555dddddddddddddddd55555555555555555555
+        555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555dddddddddddddddddd5555555555555555555
+        555555555555555555555555555ddddddddd55555555555555555555555555555555555555555555555555555555555555555555555555555555555555dddddddddddddddddddd555555555555555555
+        555555555555555555555555ddddddddddddddd55555555555555555555555555555555555555555555555555555555555555555555555555555555555dddddddddddddddddddd555555555555555555
+        5555555555555555555555ddddddddddddddddddd55555555555555555555555555555555555555555555555555555555555555555555555555555555dddddddddddddddddddddd55555555555555555
+        55555555555555555555ddddddddddddddddddddddd55555555555555555555555555555555555555555555555555555555555555555555555555555ddddddddddddddddddddddd55555555555555555
+        555555555555555555ddddddddddddddddddddddddddd555555555555555555555555555555555555555555555555555555555555555555555555555dddddddddddddddddddddddd5555555555555555
+        5555555555555555dddddddddddddddddddddddddddddd5555555555555555555555555555555555555555555555555555555555555555555555555ddddddddddddddddddddddddd5555555555555555
+        555555555555555dddddddddddddddddddddddddddddddd555555555555555555555555555555555555555555555555555555555555555555555555ddddddddddddddddddddddddd5555555555555555
+        55555555555555dddddddddddddddddddddddddddddddddd5555555555555555555555555555555555555555555555555555555555555555555555ddddddddddddddddddddddddddd555555555555555
+        5555555555555dddddddddddddddddddddddddddddddddddd555555555555555555555555555555555555555555555555555555555555555555555ddddddddddddddddddddddddddd555555555555555
+        555555555555dddddddddddddddddddddddddddddddddddddd5555555555555555555555555555555555555555555555555555555555555555555ddddddddddddddddddddddddddddd55555555555555
+        55555555555dddddddddddddddddddddddddddddddddddddddd555555555555555555555555555555555555555555555555555555555555555555ddddddddddddddddddddddddddddd55555555555555
+        5555555555dddddddddddddddddddddddddddddddddddddddddd55555555555555555555555555555555555555555555555555555555555555555ddddddddddddddddddddddddddddd55555555555555
+        555555555dddddddddddddddddddddddddddddddddddddddddddd555555555555555555555555555555555555555555555555555555555555555ddddddddddddddddddddddddddddddd5555555555555
+        555555555ddddddddddddddddddddddddddddddddddddddddddddd55555555555555555555555555555555555555555555555555555555555555ddddddddddddddddddddddddddddddd5555555555555
+        55555555ddddddddddddddddddddddddddddddddddddddddddddddd55555555555555555555555555ddddddddd5555555555555555555555555ddddddddddddddddddddddddddddddddd555555555555
+        55555555ddddddddddddddddddddddddddddddddddddddddddddddd555555555555555555555555ddddddddddddd55555555555555555555555ddddddddddddddddddddddddddddddddd555555555555
+        5555555ddddddddddddddddddddddddddddddddddddddddddddddddd555555555555555555555ddddddddddddddddd555555555555555555555dddddddddddddddddddddddddddddddddd55555555555
+        5555555ddddddddddddddddddddddddddddddddddddddddddddddddd55555555555555555555ddddddddddddddddddd5555555555555555555ddddddddddddddddddddddddddddddddddd55555555555
+        555555ddddddddddddddddddddddddddddddddddddddddddddddddddd555555555555555555ddddddddddddddddddddd55555555555555555ddddddddddddddddddddddddddddddddddddd5555555555
+        55555ddddddddddddddddddddddddddddddddddddddddddddddddddddd5555555555555555ddddddddddddddddddddddd555555555555555dddddddddddddddddddddddddddddddddddddd5555555555
+        d555dddddddddddddddddddddddddddddddddddddddddddddddddddddd555555555555555dddddddddddddddddddddddd555555555555555ddddddddddddddddddddddddddddddddddddddd555555555
+        d55dddddddddddddddddddddddddddddddddddddddddddddddddddddddd5555555555555dddddddddddddddddddddddddd555555555555dddddddddddddddddddddddddddddddddddddddddd55555555
+        d5dddddddddddddddddddddddddddddddddddddddddddddddddddddddddd55555555555dddddddddddddddddddddddddddd55555555555ddddddddddddddddddddddddddddddddddddddddddd5555555
+        dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd5555555555dddddddddddddddddddddddddddddd55555555ddddddddddddddddddddddddddddddddddddddddddddddd5555d
+        ddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd55555555ddddddddddddddddddddddddddddddddd5555dddddddddddddddddddddddddddddddddddddddddddddddddddddd
+        ddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd5555ddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd
+        dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd
+        dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd
+        dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd
+        dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd
+        dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd
+        dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd
+        dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd
+        dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd
+        dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd
+        dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd
+        dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd
+        dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd
+        dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd
+        ddddddddddddddddd36666663dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd36666663ddddddddddddddddddddddddddddddddddddddddddddddddddddddd
+        ddddddddddddddd366666677733dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd366666677733ddddddddddddddddddddddddddddddddddddddddddddddddddddd
+        ddddddddddddddddddd336667733ddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd336667733dddddddddddddddddddddddddddddddddddddddddddddddddddd
+        ddddddddddddddddd36666677773ddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd36666677773dddddddddddddddddddddddddddddddddddddddddddddddddddd
+        ddddddddddddddd66666666666773ddd333333ddddddddddddddddddddddddddddddddddddddddddddddddddddddddd66666666666773ddd333333dddddddddddddddddddddddddddddddddddddddddd
+        ddddddddddddd3677777777766673d6677777733ddddddddddddddddddddddddddddddddddddddddddddddddddddd3677777777766673d6677777733dddddddddddddddddddddddddddddddddddddddd
+        dddddddddddd667767776777766763677767667733dddddddddddddddddddddddddddddddddddddddddddddddddd667767776777766763677767667733dddddddddddddddddddddddddddddddddddddd
+        ddddddddddd67777676767767766666667676676773dddddddddddddddddddddddddddddddddddddddddddddddd67777676767767766666667676676773ddddddddddddddddddddddddddddddddddddd
+        dddddddddd6776676667667667766666666666666673dddddddddddddddddddddddddddddddddddddddddddddd6776676667667667766666666666666673dddddddddddddddddddddddddddddddddddd
+        ddddddddd677766666633666667766777776666666733dddddddddddddddddddddddddddddddddddddddddddd677766666633666667766777776666666733ddddddddddddddddddddddddddddddddddd
+        ddddddddd676766636dd6666666667766677766666673ddddddddddddd3366663dddddddddddddddddddddddd676766636dd6666666667766677766666673ddddddddddddd3366663ddddddddddddddd
+        dddddddd67766636ddd67776666666666776777663676dddddddddddd337666ddddddddddddddddddddddddd67766636ddd67776666666666776777663676dddddddddddd337666ddddddddddddddddd
+        ddddddd6776636d3ddd33676777766666767777763366ddddddddddd3376633dddddddddddddddddddddddd6776636d3ddd33676777766666767777763366ddddddddddd3376633ddddddddddddddddd
+        ddddddd67666d3ddd667766666677666d667777766d36ddddddddddd3766666663ddddddddddddddddddddd67666d3ddd667766666677666d667777766d36ddddddddddd3766666663dddddddddddddd
+        ddddddd67366ddddd677776777667666d677677776dd3dddd336666d3766677777663dddddddddddddddddd67366ddddd677776777667666d677677776dd3dddd336666d3766677777663ddddddddddd
+        ddddddd66d66ddddd336666667766666d676777776dddddd37777666766676666777666dddddddddddddddd66d66ddddd336666667766666d676777776dddddd377776667666766667776666dddddddd
+        dddddddddddddddd3777677767736666dd63766776ddddd3776667667667666666777766dddddddddddddddddddddddd3777677767736666dd63766776ddddd37766676676676666667777666ddddddd
+        ddddddddddddddd67766777776736666dddd667776dddd666666666666676663667767766dddddddddddddddddddddd67766777776736666dddd667776dddd6666666666666766636677677666dddddd
+        ddddddddddddddd67666776676636666dddd677776dddd63366666666667666d6367677766ddddddddddddddddddddd67666776676636666dddd677776dddd63366666666667666d63676777666ddddd
+        ddddddddddddddd67776677673dd6663dddd376776ddddd3677776677666663d3d666767766ddd333dddddddddddddd67776677673dd6663dddd376776ddddd3677776677666663d3d666767766ddd33
+        d3dddddddddddd67766676736ddd666ddddd366763ddddd677766677677766dddd366366766dd37773dddddddddddd67766676736ddd666ddddd366763ddddd677766677677766dddd366366766dd377
+        673dd333dddddd6766667673dddd666ddddddd376ddddd6776766666676776ddddd66d66666d3766673dd333dddddd6766667673dddd666ddddddd376ddddd6776766666676776ddddd66d66666d3766
+        6766377763dddd676776736ddddd666ddddddd363dddd677766667776666763ddddddd33666366666766377763dddd676776736ddddd666ddddddd363dddd677766667776666763ddddddd3366636666
+        66667766763ddd36776673dddddd663ddddddddddddd3776736677666777666ddddddddd6337777666667766763ddd36776673dddddd663ddddddddddddd3776736677666777666ddddddddd63377776
+        66667666676dddd676366ddddddd66dddddddddddddd37666d6677776667766ddddddddd3376667776667666676dddd676366ddddddd66dddddddddddddd37666d6677776667766ddddddddd33766677
+        666666666663ddd676dddddddddd66ddddddddddddd377636d66377667767663dddddddd37666666766666666663ddd676dddddddddd66ddddddddddddd377636d66377667767663dddddddd37666666
+        666667777666ddd363dddddddddd66ddddddd66663d3766d3d66676666776666ddddddd376666636766667777666ddd363dddddddddd66ddddddd66663d3766d3d66676666776666ddddddd376666636
+        677666767666dddddddddddddddd66dddddd3663ddd3766ddd66676766676666ddddddd376636dd6677666767666dddddddddddddddd66dddddd3663ddd3766ddd66676766676666ddddddd376636dd6
+        7776667676663ddddddddddddddd66ddd666666666dd376ddd66667767633666dddddddd766d3dd67776667676663ddddddddddddddd66ddd666666666dd376ddd66667767633666ddddddd6766d3dd6
+        7777636677633ddddddddddddddd66dd66666666666d37dddd6663766776dd66ddddddddd36ddd676777636677633ddddddddddddddd66dd66666666666d37dddd6663766776dd66dddddddd636ddd67
+        77776d66776d3ddddddddddddddd66dd66366663d66dd3dddd666d767676dd66dddddddddd3ddd6767776d66776d3ddddddddddddddd66dd66366663d66dd3dddd666d767676dd66dddddddd6d3ddd67
+        37673d63766ddddddddddddddddd66dd6d66666ddd6ddddddd666d667633dd363ddddddddddddd3667673d63766ddddddddddddddddd66dd6d66666ddd6ddddddd666d667633dd363ddddddddddddd36
+        d763ddd3763ddddddddddddddddd66dd3d66d366dd3ddddddd666dd376ddddd66dddddddddddddd67763ddd3763ddddddddddddddddd66dd3d66d366dd3ddddddd666dd376ddddd66dddddddddddddd6
+        d76ddddd66dddddddddddddddddd66dddd66dd66dddddddddd666ddd33ddddd663dddddddddddd67776ddddd66dddddddddddddddddd66dddd66dd66dddddddddd666ddd33ddddd663dddddddddddd67
+        d76dddddd6ddddd36663dddddddd66dddd63dd36dddddddddd366dddddddddd366dddddddddddd67776dddddd6ddddd36663dddddddd66dddd63dd36dddddddddd366dddddddddd366dddddddddddd67
+        d63dddddd3ddd3666663366ddddd66dddd6dddd63dddd3dddd366ddddddddddd66dddddddddddd67663dddddd3ddd3666663366ddddd66dddd6dddd63dddd3dddd366ddddddddddd66dddddddddddd67
+        d6ddddddddddd3dd66666666dddd66ddddddddd63ddddd3dddd663dddddddddd663ddddddddddd3766ddddddddddd3dd66666666dddd66ddddddddd63ddddd3dddd663dddddddddd663ddddddddddd37
+        d6ddddddddddddd6636666363ddd66ddddddddd36ddddd33ddd663dddddddddd366dddddddddddd366ddddddddddddd6636666363ddd66ddddddddd36ddddd33ddd663dddddddddd366dddddddddddd3
+        d6dddddddddddd666d66366d6ddd66dddddddddd6dddddd33dd666ddddddddddd666dddddddddddd66dddddddddddd666d66366d6ddd66dddddddddd6dddddd33dd666ddddddddddd666dddddddddddd
+        d6dddddddddddd66dd66d66d3ddd66dddddddddd63dddddd3dd666ddddddd33dd3663ddddddddddd66dddddddddddd66dd66d66d3ddd66dddddddddd63dddddd3dd666ddddddd33dd3663ddddddddddd
+        dddddddddddddd6dd36dd36ddddd663ddddddddd63dddddd63d6663ddddd33dddd666dddddddddd36ddddddddddddd6dd36dd36ddddd663ddddddddd63dddddd63d6663ddddd33dddd666dddddddddd3
+        dddddd333dddddddd66ddd6ddddd663ddddddddd66dddddd36d6663dddd33ddddd6666ddddddddd66ddddd333dddddddd66ddd6ddddd663ddddddddd66dddddd36d6663dddd33ddddd6666ddddddddd6
+        ddddddddd33dddddd63ddd3ddddd663dddd33ddd66ddddddd636666dddd33ddddd3666dddddd3dd63dddddddd33dddddd63ddd3ddddd663dddd33ddd66ddddddd636666dddd33ddddd36666ddddd3dd6
+        dddddddddd333dddd6dddddddddd666d3ddd33dd36ddd33dd363666ddd36ddddddd6666ddd33dd36dddddddddd333dddd6dddddddddd666d3ddd33dd36ddd33dd363666ddd36ddddddd6666dddd3dd36
+        ddddddddddd333ddd6ddddd33ddd666dd3ddd33d36d333ddd363666ddd36dd33ddd6666ddd3ddd66ddddddddddd333ddd6ddddd33ddd666dd3ddd33d36d333ddd363666ddd36dd33ddd6666ddd33dd66
+        d33ddddddddd363d36ddd33ddddd366dd33ddd6d363363d3dd66666ddd63ddd33dd36666d3dddd66d33ddddddddd363d36ddd33ddddd366dd33ddd6d363363d3dd66666ddd63ddd33dd36666dd3ddd66
+        d3ddddddddddd36366dd33d3dd3dd66ddd63dd3636366d3ddd66666dd36dd3dd36dd6666d3ddd36333ddddddddddd36366dd33d3dd3dd66ddd63dd3636366d3ddd66666dd36dd3dd36dd6666d33dd363
+        dddddddddddddd6666d36d3dd33dd663dd36ddd63636d33ddd66666dd66dd33d363d3666d3ddd6633ddddddddddddd6666d36d3dd33dd663dd36ddd63636d33ddd66666dd66dd33d363d366633ddd663
+        3ddd33dddd33dd3663366d3d33ddd663ddd63dd3666636dddd366663d66ddd3dd363366663dd36633ddd33dddd33dd3663366d3d33ddd663ddd63dd3666636dddd366663d66ddd3dd36336666ddd3663
+        6d333dddddd33dd66366d3dd33ddd666ddd66dd3666366ddddd66663d66ddd6dd36336663dd33663dd333dddddd33dd66366d3dd33ddd666ddd66dd3666366ddddd66663d66ddd6dd36336666dd33663
+        d366ddd33ddd33d66363d3d333666666666666666666666666666666d66d3d63dd6336666d333633d366ddd33ddd33d66363d3d333666666666666666666666666666666d66d3d63dd63366663333633
+        d66ddd33dd3d33dd6366666666666666666666666666666666666666366d3d63dd36366666336633366ddd33dd3d33dd6366666666666666666666666666666666666666366d3d63dd36366666336633
+        36dd3d33ddd3d33d6666666666666666666666666666666666666666666d3366d3d636666633663366dd3d33ddd3d33d6666666666666666666666666666666666666666666d3366d3d6366666336633
+        63d3d33dddd36666666666666666666666666666666666666666666666666366d3d636666663663363d3d33dddd36666666666666666666666666666666666666666666666666366d3d6366666636633
+        6336d33dd6666666666666666666666666666666666666666666666666666666d3d36666666366366336d33dd6666666666666666666666666666666666666666666666666666666d3d3666666636636
+        3d66d3366666666666666666666666666666666666666666666666666666666666336666666666363d66d336666666666666666666666666666666666666666666666666666666666633666666666636
+        6363d6666666666666666666666666666666666666666666666666666666666666666666666666363363d666666666666666666666666666666666666666666666666666666666666666666666666636
+        6666666666666666666666666666666666666666666666666666666666666666666666666666663636666666666666666666666666666666666666666666666666666666666666666666666666666636
+        6666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666
+        6666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666
+        6666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666
+        6666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666
+        6666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666
+        6666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666
+        6666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666
+        6666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666
+        6666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666
+        6666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666
+        6666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666
+        6666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666
+        .666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666
+        `)
+    tiles.setCurrentTilemap(tilemap`level2`)
+    game.showLongText("Welcome to the game Monkey Jumper. ", DialogLayout.Full)
+    game.showLongText("In the game you are a monkey who collects bananas. Bananas are your weapons, press \"B\" to throw a banana once you have collected it. Special orbs called Power ups might give you more bananas or make you jump higher. Lastly press \"A\" to jump.", DialogLayout.Full)
+    Monkey = sprites.create(img`
+        . . . . f f f f f . . . . . . . 
+        . . . f e e e e e f . . . . . . 
+        . . f d d d d e e e f . . . . . 
+        . c d f d d f d e e f f . . . . 
+        . c d f d d f d e e d d f . . . 
+        c d e e d d d d e e b d c . . . 
+        c d d d d c d d e e b d c . . . 
+        c c c c c d d e e e f c . . . . 
+        . f d d d d e e e f f . . . . . 
+        . . f e e e f f e e e f . . . . 
+        . . f f f f f e e e e e f . f f 
+        . . f d b f e e f f e e f . e f 
+        . f f d d f e f f e e e f . e f 
+        . f f f f f f e b b f e f f e f 
+        . f d d f e e e d d b e f f f f 
+        . . f f f f f f f f f f f f f . 
+        `, SpriteKind.Player)
+    controller.moveSprite(Monkey, 100, 0)
+    Monkey.ay = 500
+    scene.cameraFollowSprite(Monkey)
+    Call_Banannas()
+    Make_Enemys_snake()
+    Go_to_start()
+    Place_Power_Ups()
+    Make_Banana()
+    Make_Mushrooms()
+    extra_HEarts()
+}
 sprites.onOverlap(SpriteKind.Player, SpriteKind.Food, function (sprite, otherSprite) {
     music.baDing.play()
     info.changeScoreBy(1)
@@ -908,222 +1167,12 @@ let Bananna: Sprite = null
 let mushrooms: Sprite = null
 let projectile: Sprite = null
 let Throw = 0
+let Power_Up = 0
 let Snake: Sprite = null
 let Twice = 0
-let Monkey: Sprite = null
 let Invicible = 0
-let Power_Up = 0
-controller.combos.setTimeout(3)
-game.setDialogFrame(img`
-    88888..8888888888888888....88888.
-    87768888777877787778777888867778.
-    87777686767876767678767688777778.
-    87767767667676676676766786776768.
-    8677676767767767677677678676778..
-    .877768777686767776867678667768..
-    .886668888888888888888888886688..
-    .888888866666666666666668877768..
-    88677786666666666666666668766778.
-    87766686666666666666666668776678.
-    87667786666666666666666668677778.
-    87777686666666666666666668866888.
-    88866886666666666666666668677778.
-    87777686666666666666666668776678.
-    87667786666666666666666668666778.
-    87766786666666666666666668777688.
-    88677786666666666666666668766778.
-    87766686666666666666666668776678.
-    87667786666666666666666668677778.
-    87777686666666666666666668866888.
-    88866886666666666666666668677778.
-    87777686666666666666666668776678.
-    87667786666666666666666668666778.
-    87766786666666666666666668777688.
-    .867778866666666666666668888888..
-    .886688888888888888888888866688..
-    .867766876768677767686777867778..
-    .8776768767767767677677676767768.
-    86767768766767667667676676776778.
-    87777788676787676767876768677778.
-    87776888877787778777877788886778.
-    88888..88888888888888888....8888.
-    .................................
-    `)
-game.setDialogCursor(img`
-    . . . . f f f f f . . . . . . . 
-    . . . f e e e e e f . . . . . . 
-    . . f d d d d e e e f . . . . . 
-    . c d f d d f d e e f f . . . . 
-    . c d f d d f d e e d d f . . . 
-    c d e e d d d d e e b d c . . . 
-    c d d d d c d d e e b d c . f f 
-    c c c c c d d d e e f c . f e f 
-    . f d d d d d e e f f . . f e f 
-    . . f f f f f e e e e f . f e f 
-    . . . . f e e e e e e e f f e f 
-    . . . f e f f e f e e e e f f . 
-    . . . f e f f e f e e e e f . . 
-    . . . f d b f d b f f e f . . . 
-    . . . f d d c d d b b d f . . . 
-    . . . . f f f f f f f f f . . . 
-    `)
-Power_Up = 0
-Invicible = 0
-info.setScore(0)
-info.setLife(4)
-scene.setBackgroundImage(img`
-    5555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555...
-    5555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555
-    5555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555
-    5555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555
-    5555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555
-    555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555dddddd5555555555555555555555555
-    5555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555dddddddddd55555555555555555555555
-    55555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555dddddddddddddd555555555555555555555
-    5555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555dddddddddddddddd55555555555555555555
-    555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555dddddddddddddddddd5555555555555555555
-    555555555555555555555555555ddddddddd55555555555555555555555555555555555555555555555555555555555555555555555555555555555555dddddddddddddddddddd555555555555555555
-    555555555555555555555555ddddddddddddddd55555555555555555555555555555555555555555555555555555555555555555555555555555555555dddddddddddddddddddd555555555555555555
-    5555555555555555555555ddddddddddddddddddd55555555555555555555555555555555555555555555555555555555555555555555555555555555dddddddddddddddddddddd55555555555555555
-    55555555555555555555ddddddddddddddddddddddd55555555555555555555555555555555555555555555555555555555555555555555555555555ddddddddddddddddddddddd55555555555555555
-    555555555555555555ddddddddddddddddddddddddddd555555555555555555555555555555555555555555555555555555555555555555555555555dddddddddddddddddddddddd5555555555555555
-    5555555555555555dddddddddddddddddddddddddddddd5555555555555555555555555555555555555555555555555555555555555555555555555ddddddddddddddddddddddddd5555555555555555
-    555555555555555dddddddddddddddddddddddddddddddd555555555555555555555555555555555555555555555555555555555555555555555555ddddddddddddddddddddddddd5555555555555555
-    55555555555555dddddddddddddddddddddddddddddddddd5555555555555555555555555555555555555555555555555555555555555555555555ddddddddddddddddddddddddddd555555555555555
-    5555555555555dddddddddddddddddddddddddddddddddddd555555555555555555555555555555555555555555555555555555555555555555555ddddddddddddddddddddddddddd555555555555555
-    555555555555dddddddddddddddddddddddddddddddddddddd5555555555555555555555555555555555555555555555555555555555555555555ddddddddddddddddddddddddddddd55555555555555
-    55555555555dddddddddddddddddddddddddddddddddddddddd555555555555555555555555555555555555555555555555555555555555555555ddddddddddddddddddddddddddddd55555555555555
-    5555555555dddddddddddddddddddddddddddddddddddddddddd55555555555555555555555555555555555555555555555555555555555555555ddddddddddddddddddddddddddddd55555555555555
-    555555555dddddddddddddddddddddddddddddddddddddddddddd555555555555555555555555555555555555555555555555555555555555555ddddddddddddddddddddddddddddddd5555555555555
-    555555555ddddddddddddddddddddddddddddddddddddddddddddd55555555555555555555555555555555555555555555555555555555555555ddddddddddddddddddddddddddddddd5555555555555
-    55555555ddddddddddddddddddddddddddddddddddddddddddddddd55555555555555555555555555ddddddddd5555555555555555555555555ddddddddddddddddddddddddddddddddd555555555555
-    55555555ddddddddddddddddddddddddddddddddddddddddddddddd555555555555555555555555ddddddddddddd55555555555555555555555ddddddddddddddddddddddddddddddddd555555555555
-    5555555ddddddddddddddddddddddddddddddddddddddddddddddddd555555555555555555555ddddddddddddddddd555555555555555555555dddddddddddddddddddddddddddddddddd55555555555
-    5555555ddddddddddddddddddddddddddddddddddddddddddddddddd55555555555555555555ddddddddddddddddddd5555555555555555555ddddddddddddddddddddddddddddddddddd55555555555
-    555555ddddddddddddddddddddddddddddddddddddddddddddddddddd555555555555555555ddddddddddddddddddddd55555555555555555ddddddddddddddddddddddddddddddddddddd5555555555
-    55555ddddddddddddddddddddddddddddddddddddddddddddddddddddd5555555555555555ddddddddddddddddddddddd555555555555555dddddddddddddddddddddddddddddddddddddd5555555555
-    d555dddddddddddddddddddddddddddddddddddddddddddddddddddddd555555555555555dddddddddddddddddddddddd555555555555555ddddddddddddddddddddddddddddddddddddddd555555555
-    d55dddddddddddddddddddddddddddddddddddddddddddddddddddddddd5555555555555dddddddddddddddddddddddddd555555555555dddddddddddddddddddddddddddddddddddddddddd55555555
-    d5dddddddddddddddddddddddddddddddddddddddddddddddddddddddddd55555555555dddddddddddddddddddddddddddd55555555555ddddddddddddddddddddddddddddddddddddddddddd5555555
-    dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd5555555555dddddddddddddddddddddddddddddd55555555ddddddddddddddddddddddddddddddddddddddddddddddd5555d
-    ddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd55555555ddddddddddddddddddddddddddddddddd5555dddddddddddddddddddddddddddddddddddddddddddddddddddddd
-    ddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd5555ddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd
-    dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd
-    dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd
-    dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd
-    dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd
-    dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd
-    dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd
-    dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd
-    dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd
-    dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd
-    dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd
-    dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd
-    dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd
-    dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd
-    ddddddddddddddddd36666663dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd36666663ddddddddddddddddddddddddddddddddddddddddddddddddddddddd
-    ddddddddddddddd366666677733dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd366666677733ddddddddddddddddddddddddddddddddddddddddddddddddddddd
-    ddddddddddddddddddd336667733ddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd336667733dddddddddddddddddddddddddddddddddddddddddddddddddddd
-    ddddddddddddddddd36666677773ddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd36666677773dddddddddddddddddddddddddddddddddddddddddddddddddddd
-    ddddddddddddddd66666666666773ddd333333ddddddddddddddddddddddddddddddddddddddddddddddddddddddddd66666666666773ddd333333dddddddddddddddddddddddddddddddddddddddddd
-    ddddddddddddd3677777777766673d6677777733ddddddddddddddddddddddddddddddddddddddddddddddddddddd3677777777766673d6677777733dddddddddddddddddddddddddddddddddddddddd
-    dddddddddddd667767776777766763677767667733dddddddddddddddddddddddddddddddddddddddddddddddddd667767776777766763677767667733dddddddddddddddddddddddddddddddddddddd
-    ddddddddddd67777676767767766666667676676773dddddddddddddddddddddddddddddddddddddddddddddddd67777676767767766666667676676773ddddddddddddddddddddddddddddddddddddd
-    dddddddddd6776676667667667766666666666666673dddddddddddddddddddddddddddddddddddddddddddddd6776676667667667766666666666666673dddddddddddddddddddddddddddddddddddd
-    ddddddddd677766666633666667766777776666666733dddddddddddddddddddddddddddddddddddddddddddd677766666633666667766777776666666733ddddddddddddddddddddddddddddddddddd
-    ddddddddd676766636dd6666666667766677766666673ddddddddddddd3366663dddddddddddddddddddddddd676766636dd6666666667766677766666673ddddddddddddd3366663ddddddddddddddd
-    dddddddd67766636ddd67776666666666776777663676dddddddddddd337666ddddddddddddddddddddddddd67766636ddd67776666666666776777663676dddddddddddd337666ddddddddddddddddd
-    ddddddd6776636d3ddd33676777766666767777763366ddddddddddd3376633dddddddddddddddddddddddd6776636d3ddd33676777766666767777763366ddddddddddd3376633ddddddddddddddddd
-    ddddddd67666d3ddd667766666677666d667777766d36ddddddddddd3766666663ddddddddddddddddddddd67666d3ddd667766666677666d667777766d36ddddddddddd3766666663dddddddddddddd
-    ddddddd67366ddddd677776777667666d677677776dd3dddd336666d3766677777663dddddddddddddddddd67366ddddd677776777667666d677677776dd3dddd336666d3766677777663ddddddddddd
-    ddddddd66d66ddddd336666667766666d676777776dddddd37777666766676666777666dddddddddddddddd66d66ddddd336666667766666d676777776dddddd377776667666766667776666dddddddd
-    dddddddddddddddd3777677767736666dd63766776ddddd3776667667667666666777766dddddddddddddddddddddddd3777677767736666dd63766776ddddd37766676676676666667777666ddddddd
-    ddddddddddddddd67766777776736666dddd667776dddd666666666666676663667767766dddddddddddddddddddddd67766777776736666dddd667776dddd6666666666666766636677677666dddddd
-    ddddddddddddddd67666776676636666dddd677776dddd63366666666667666d6367677766ddddddddddddddddddddd67666776676636666dddd677776dddd63366666666667666d63676777666ddddd
-    ddddddddddddddd67776677673dd6663dddd376776ddddd3677776677666663d3d666767766ddd333dddddddddddddd67776677673dd6663dddd376776ddddd3677776677666663d3d666767766ddd33
-    d3dddddddddddd67766676736ddd666ddddd366763ddddd677766677677766dddd366366766dd37773dddddddddddd67766676736ddd666ddddd366763ddddd677766677677766dddd366366766dd377
-    673dd333dddddd6766667673dddd666ddddddd376ddddd6776766666676776ddddd66d66666d3766673dd333dddddd6766667673dddd666ddddddd376ddddd6776766666676776ddddd66d66666d3766
-    6766377763dddd676776736ddddd666ddddddd363dddd677766667776666763ddddddd33666366666766377763dddd676776736ddddd666ddddddd363dddd677766667776666763ddddddd3366636666
-    66667766763ddd36776673dddddd663ddddddddddddd3776736677666777666ddddddddd6337777666667766763ddd36776673dddddd663ddddddddddddd3776736677666777666ddddddddd63377776
-    66667666676dddd676366ddddddd66dddddddddddddd37666d6677776667766ddddddddd3376667776667666676dddd676366ddddddd66dddddddddddddd37666d6677776667766ddddddddd33766677
-    666666666663ddd676dddddddddd66ddddddddddddd377636d66377667767663dddddddd37666666766666666663ddd676dddddddddd66ddddddddddddd377636d66377667767663dddddddd37666666
-    666667777666ddd363dddddddddd66ddddddd66663d3766d3d66676666776666ddddddd376666636766667777666ddd363dddddddddd66ddddddd66663d3766d3d66676666776666ddddddd376666636
-    677666767666dddddddddddddddd66dddddd3663ddd3766ddd66676766676666ddddddd376636dd6677666767666dddddddddddddddd66dddddd3663ddd3766ddd66676766676666ddddddd376636dd6
-    7776667676663ddddddddddddddd66ddd666666666dd376ddd66667767633666dddddddd766d3dd67776667676663ddddddddddddddd66ddd666666666dd376ddd66667767633666ddddddd6766d3dd6
-    7777636677633ddddddddddddddd66dd66666666666d37dddd6663766776dd66ddddddddd36ddd676777636677633ddddddddddddddd66dd66666666666d37dddd6663766776dd66dddddddd636ddd67
-    77776d66776d3ddddddddddddddd66dd66366663d66dd3dddd666d767676dd66dddddddddd3ddd6767776d66776d3ddddddddddddddd66dd66366663d66dd3dddd666d767676dd66dddddddd6d3ddd67
-    37673d63766ddddddddddddddddd66dd6d66666ddd6ddddddd666d667633dd363ddddddddddddd3667673d63766ddddddddddddddddd66dd6d66666ddd6ddddddd666d667633dd363ddddddddddddd36
-    d763ddd3763ddddddddddddddddd66dd3d66d366dd3ddddddd666dd376ddddd66dddddddddddddd67763ddd3763ddddddddddddddddd66dd3d66d366dd3ddddddd666dd376ddddd66dddddddddddddd6
-    d76ddddd66dddddddddddddddddd66dddd66dd66dddddddddd666ddd33ddddd663dddddddddddd67776ddddd66dddddddddddddddddd66dddd66dd66dddddddddd666ddd33ddddd663dddddddddddd67
-    d76dddddd6ddddd36663dddddddd66dddd63dd36dddddddddd366dddddddddd366dddddddddddd67776dddddd6ddddd36663dddddddd66dddd63dd36dddddddddd366dddddddddd366dddddddddddd67
-    d63dddddd3ddd3666663366ddddd66dddd6dddd63dddd3dddd366ddddddddddd66dddddddddddd67663dddddd3ddd3666663366ddddd66dddd6dddd63dddd3dddd366ddddddddddd66dddddddddddd67
-    d6ddddddddddd3dd66666666dddd66ddddddddd63ddddd3dddd663dddddddddd663ddddddddddd3766ddddddddddd3dd66666666dddd66ddddddddd63ddddd3dddd663dddddddddd663ddddddddddd37
-    d6ddddddddddddd6636666363ddd66ddddddddd36ddddd33ddd663dddddddddd366dddddddddddd366ddddddddddddd6636666363ddd66ddddddddd36ddddd33ddd663dddddddddd366dddddddddddd3
-    d6dddddddddddd666d66366d6ddd66dddddddddd6dddddd33dd666ddddddddddd666dddddddddddd66dddddddddddd666d66366d6ddd66dddddddddd6dddddd33dd666ddddddddddd666dddddddddddd
-    d6dddddddddddd66dd66d66d3ddd66dddddddddd63dddddd3dd666ddddddd33dd3663ddddddddddd66dddddddddddd66dd66d66d3ddd66dddddddddd63dddddd3dd666ddddddd33dd3663ddddddddddd
-    dddddddddddddd6dd36dd36ddddd663ddddddddd63dddddd63d6663ddddd33dddd666dddddddddd36ddddddddddddd6dd36dd36ddddd663ddddddddd63dddddd63d6663ddddd33dddd666dddddddddd3
-    dddddd333dddddddd66ddd6ddddd663ddddddddd66dddddd36d6663dddd33ddddd6666ddddddddd66ddddd333dddddddd66ddd6ddddd663ddddddddd66dddddd36d6663dddd33ddddd6666ddddddddd6
-    ddddddddd33dddddd63ddd3ddddd663dddd33ddd66ddddddd636666dddd33ddddd3666dddddd3dd63dddddddd33dddddd63ddd3ddddd663dddd33ddd66ddddddd636666dddd33ddddd36666ddddd3dd6
-    dddddddddd333dddd6dddddddddd666d3ddd33dd36ddd33dd363666ddd36ddddddd6666ddd33dd36dddddddddd333dddd6dddddddddd666d3ddd33dd36ddd33dd363666ddd36ddddddd6666dddd3dd36
-    ddddddddddd333ddd6ddddd33ddd666dd3ddd33d36d333ddd363666ddd36dd33ddd6666ddd3ddd66ddddddddddd333ddd6ddddd33ddd666dd3ddd33d36d333ddd363666ddd36dd33ddd6666ddd33dd66
-    d33ddddddddd363d36ddd33ddddd366dd33ddd6d363363d3dd66666ddd63ddd33dd36666d3dddd66d33ddddddddd363d36ddd33ddddd366dd33ddd6d363363d3dd66666ddd63ddd33dd36666dd3ddd66
-    d3ddddddddddd36366dd33d3dd3dd66ddd63dd3636366d3ddd66666dd36dd3dd36dd6666d3ddd36333ddddddddddd36366dd33d3dd3dd66ddd63dd3636366d3ddd66666dd36dd3dd36dd6666d33dd363
-    dddddddddddddd6666d36d3dd33dd663dd36ddd63636d33ddd66666dd66dd33d363d3666d3ddd6633ddddddddddddd6666d36d3dd33dd663dd36ddd63636d33ddd66666dd66dd33d363d366633ddd663
-    3ddd33dddd33dd3663366d3d33ddd663ddd63dd3666636dddd366663d66ddd3dd363366663dd36633ddd33dddd33dd3663366d3d33ddd663ddd63dd3666636dddd366663d66ddd3dd36336666ddd3663
-    6d333dddddd33dd66366d3dd33ddd666ddd66dd3666366ddddd66663d66ddd6dd36336663dd33663dd333dddddd33dd66366d3dd33ddd666ddd66dd3666366ddddd66663d66ddd6dd36336666dd33663
-    d366ddd33ddd33d66363d3d333666666666666666666666666666666d66d3d63dd6336666d333633d366ddd33ddd33d66363d3d333666666666666666666666666666666d66d3d63dd63366663333633
-    d66ddd33dd3d33dd6366666666666666666666666666666666666666366d3d63dd36366666336633366ddd33dd3d33dd6366666666666666666666666666666666666666366d3d63dd36366666336633
-    36dd3d33ddd3d33d6666666666666666666666666666666666666666666d3366d3d636666633663366dd3d33ddd3d33d6666666666666666666666666666666666666666666d3366d3d6366666336633
-    63d3d33dddd36666666666666666666666666666666666666666666666666366d3d636666663663363d3d33dddd36666666666666666666666666666666666666666666666666366d3d6366666636633
-    6336d33dd6666666666666666666666666666666666666666666666666666666d3d36666666366366336d33dd6666666666666666666666666666666666666666666666666666666d3d3666666636636
-    3d66d3366666666666666666666666666666666666666666666666666666666666336666666666363d66d336666666666666666666666666666666666666666666666666666666666633666666666636
-    6363d6666666666666666666666666666666666666666666666666666666666666666666666666363363d666666666666666666666666666666666666666666666666666666666666666666666666636
-    6666666666666666666666666666666666666666666666666666666666666666666666666666663636666666666666666666666666666666666666666666666666666666666666666666666666666636
-    6666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666
-    6666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666
-    6666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666
-    6666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666
-    6666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666
-    6666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666
-    6666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666
-    6666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666
-    6666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666
-    6666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666
-    6666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666
-    6666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666
-    .666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666666
-    `)
-tiles.setCurrentTilemap(tilemap`level2`)
-game.showLongText("Welcome to the game Monkey Jumper. ", DialogLayout.Full)
-game.showLongText("In the game you are a monkey who collects bananas. Bananas are your weapons, press \"B\" to throw a banana once you have collected it. Special orbs called Power ups might give you more bananas or make you jump higher. Lastly press \"A\" to jump.", DialogLayout.Full)
-Monkey = sprites.create(img`
-    . . . . f f f f f . . . . . . . 
-    . . . f e e e e e f . . . . . . 
-    . . f d d d d e e e f . . . . . 
-    . c d f d d f d e e f f . . . . 
-    . c d f d d f d e e d d f . . . 
-    c d e e d d d d e e b d c . . . 
-    c d d d d c d d e e b d c . . . 
-    c c c c c d d e e e f c . . . . 
-    . f d d d d e e e f f . . . . . 
-    . . f e e e f f e e e f . . . . 
-    . . f f f f f e e e e e f . f f 
-    . . f d b f e e f f e e f . e f 
-    . f f d d f e f f e e e f . e f 
-    . f f f f f f e b b f e f f e f 
-    . f d d f e e e d d b e f f f f 
-    . . f f f f f f f f f f f f f . 
-    `, SpriteKind.Player)
-controller.moveSprite(Monkey, 100, 0)
-Monkey.ay = 500
-scene.cameraFollowSprite(Monkey)
-Call_Banannas()
-Make_Enemys_snake()
-Go_to_start()
-Place_Power_Ups()
-Make_Banana()
-Make_Mushrooms()
-extra_HEarts()
+let Monkey: Sprite = null
+Starting()
 game.onUpdate(function () {
     for (let value of sprites.allOfKind(SpriteKind.Snake)) {
         if (value.isHittingTile(CollisionDirection.Left)) {
@@ -1367,4 +1416,7 @@ game.onUpdate(function () {
             value.vx = -50
         }
     }
+})
+forever(function () {
+    MOOSIC()
 })
